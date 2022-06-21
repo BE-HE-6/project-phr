@@ -40,4 +40,26 @@ RSpec.describe "VaccineCategories", type: :request do
             end
         end
     end
+
+    describe 'POST /api/vaccine_categories' do
+        context 'the request is invalid' do
+            before { post '/api/vaccine_categories', params: { name: nil } }
+            it 'return status code 422' do
+                expect(response).to have_http_status(422)
+            end
+            it 'return a validation failure message' do
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Name can't be blank")
+            end
+        end
+
+        context 'the request is valid' do
+            before { post '/api/vaccine_categories', params: { name: 'Inactivated vaccines' } }
+            it 'created a vaccine category' do
+                expect(JSON.parse(response.body)['name']).to eq('Inactivated vaccines')
+            end
+            it 'return status code 201' do
+                expect(response).to have_http_status(201)
+            end
+        end
+    end
 end
