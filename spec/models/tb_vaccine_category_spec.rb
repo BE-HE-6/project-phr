@@ -76,4 +76,18 @@ RSpec.describe TbVaccineCategory, type: :model do
             expect(vaccineCategory).to be_valid
         end
     end
+    
+    describe '-- DELETE category' do
+        it 'is invalid delete without valid id' do
+            expect { TbVaccineCategory.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid delete category' do
+            vaccineCategory = TbVaccineCategory.create(
+                name: 'Inactivated vaccines'
+            )
+            vaccineCategory.destroy
+            expect(vaccineCategory).to be_valid
+        end
+    end
 end
