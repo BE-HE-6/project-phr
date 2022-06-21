@@ -11,10 +11,10 @@ class VaccinesController < ApplicationController
         @vaccine = TbVaccine.create!(vaccine_params)
         jsonResponse(@vaccine, :created)
     end
-    def update
-        @vaccine = TbVaccine.find(params[:id])
-        jsonResponse(@vaccine.update!(vaccine_params), :no_content)
-    end
+    # def update
+    #     @vaccine = TbVaccine.find(params[:id])
+    #     jsonResponse(@vaccine.update!(vaccine_params), :no_content)
+    # end
     def destroy
         TbVaccine.destroy(params[:id])
         head :no_content
