@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   scope '/api' do
 		resources :vaccine_categories, only: [:create, :index, :update, :destroy, :show]
+		resources :vaccines, only: [:create, :index, :destroy, :show]
 	end
 end
