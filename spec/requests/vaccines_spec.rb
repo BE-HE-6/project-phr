@@ -39,4 +39,61 @@ RSpec.describe "Vaccines", type: :request do
             end
         end
     end
+
+    describe 'POST /api/vaccines' do
+        context 'the request is invalid' do
+            it "name can't be blank" do
+                post '/api/vaccines', params: { 
+                    name: nil,
+                    location: 'Kota Bekasi',
+                    user_id: 1,
+                    vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Name can't be blank")
+            end
+            it "location can't be blank" do
+                post '/api/vaccines', params: { 
+                    name: 'Inactivated vaccines',
+                    location: nil,
+                    user_id: 1,
+                    vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Location can't be blank")
+            end
+            it "user id can't be blank" do
+                post '/api/vaccines', params: { 
+                    name: 'Inactivated vaccines',
+                    location: 'Kota Bekasi',
+                    user_id: nil,
+                    vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
+            end
+            it "vaccine category id can't be blank" do
+                post '/api/vaccines', params: { 
+                    name: 'Inactivated vaccines',
+                    location: 'Kota Bekasi',
+                    user_id: 1,
+                    vaccine_category_id: nil
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb vaccine category must exist, Vaccine category can't be blank, Vaccine category is not a number")
+            end
+        end
+
+        context 'the request is valid' do
+            it 'created a vaccine' do
+                post '/api/vaccines', params: {  
+                    name: 'Inactivated vaccines',
+                    location: 'Kota Bekasi',
+                    user_id: 1,
+                    vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                } 
+                expect(response).to have_http_status(201)
+            end
+        end
+    end
 end
