@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Vaccines", type: :request do
-  describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
-  end
+	let!(:vaccine_categories) { create_list(:TbVaccineCategory, 5) }
+    let!(:vaccines) { create_list(:TbVaccine, 5) }
+    let(:vaccine_id) { vaccines.first.id }
 end
