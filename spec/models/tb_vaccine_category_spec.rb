@@ -90,4 +90,18 @@ RSpec.describe TbVaccineCategory, type: :model do
             expect(vaccineCategory).to be_valid
         end
     end
+	
+    describe '-- GET category' do
+        it 'is invalid get without valid id' do
+            expect { TbVaccineCategory.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid get category with valid id' do
+            TbVaccineCategory.create(
+                name: 'Inactivated vaccines'
+            )
+            vaccineCategory = TbVaccineCategory.find(1)
+            expect(vaccineCategory).to be_valid
+        end
+    end
 end
