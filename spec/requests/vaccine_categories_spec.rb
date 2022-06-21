@@ -74,4 +74,20 @@ RSpec.describe "VaccineCategories", type: :request do
             end
         end
     end
+
+    describe 'DELETE /api/vaccine_categories/:id' do
+        context 'when the record does not exist' do
+            before { delete "/api/vaccine_categories/1000" }
+            it 'return status code ' do
+                expect(response).to have_http_status(404)
+                expect(JSON.parse(response.body)['message']).to match("Couldn't find TbVaccineCategory with 'id'=1000")
+            end
+        end
+        context 'when the record exists' do
+            before { delete "/api/vaccine_categories/#{vaccine_category_id}" }
+            it 'return status code 204' do
+                expect(response).to have_http_status(204)
+            end
+        end
+    end
 end
