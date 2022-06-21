@@ -110,4 +110,24 @@ RSpec.describe TbVaccine, type: :model do
             expect(vaccine).to be_valid
         end
     end
+
+    describe '-- GET Vaccine' do
+        it 'is invalid get without valid id' do
+            expect { TbVaccine.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid get Vaccine with valid id' do
+			vaccineCategory = TbVaccineCategory.create(
+				name: 'Inactivated vaccines'
+			)
+			TbVaccine.create(
+				name: 'Vaksin COVID-19',
+                location: 'POLRES Kota Bekasi',
+                user_id: 1,
+                vaccine_category_id: vaccineCategory.id
+			)
+            vaccine = TbVaccine.find(1)
+            expect(vaccine).to be_valid
+        end
+    end
 end
