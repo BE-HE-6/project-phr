@@ -62,4 +62,16 @@ RSpec.describe "VaccineCategories", type: :request do
             end
         end
     end
+    
+	describe 'PUT /api/vaccine_categories/:id' do
+        context 'when the record exists' do
+            before { put "/api/vaccine_categories/#{vaccine_category_id}", params: { name: 'Toxoid vaccines' } }
+            it 'updated the record' do
+                expect(response.body).to be_empty
+            end
+            it 'return status code 204' do
+                expect(response).to have_http_status(204)
+            end
+        end
+    end
 end
