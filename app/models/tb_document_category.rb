@@ -1,0 +1,2 @@
+class TbDocumentCategory < ApplicationRecord
+end
