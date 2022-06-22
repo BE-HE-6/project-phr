@@ -52,6 +52,13 @@ RSpec.describe BodyWeightHeight, type: :model do
       result = bwh.get_bmi
       expect(result).to eq(27.755102040816325)
     end
+  end
 
+  describe 'GET BodyWeightHeight' do
+    it "is valid GET BodyWeightHeight with valid ID" do
+       FactoryBot.create(:body_weight_height)
+       bwh = BodyWeightHeight.find(1)
+       expect(bwh).to be_valid
+    end
   end
 end
