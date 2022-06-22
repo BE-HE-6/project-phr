@@ -62,4 +62,16 @@ RSpec.describe "DocumentCategories", type: :request do
             end
         end
     end
+    
+	describe 'PUT /api/document_categories/:id' do
+        context 'when the record exists' do
+            before { put "/api/document_categories/#{document_category_id}", params: { name: 'Medical Billing' } }
+            it 'updated the record' do
+                expect(response.body).to be_empty
+            end
+            it 'return status code 204' do
+                expect(response).to have_http_status(204)
+            end
+        end
+    end
 end
