@@ -29,4 +29,51 @@ RSpec.describe TbDocumentCategory, type: :model do
 			expect(documentCategory).to be_valid
 		end
 	end
+
+    describe '-- UPDATE Document Category' do
+        it 'is invalid update without valid id' do
+            expect { 
+                documentCategory = TbDocumentCategory.find(1)
+                documentCategory.update(
+                    name: 'Diagnose'
+                ) 
+            }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it 'is invalid update without a name' do
+            documentCategory = TbDocumentCategory.create(
+                name: "Diagnose"
+            )
+            documentCategory.update(
+                name: nil
+            )
+            documentCategory.valid?
+            expect(documentCategory.errors[:name]).to include("can't be blank")
+        end
+        
+        it "is invalid update with a duplicate name" do
+            documentCategory1 = TbDocumentCategory.create(
+                name: 'Diagnose'
+            )
+            documentCategory2 = TbDocumentCategory.create(
+                name: 'Medical Billing'
+            )
+            documentCategory2.update(
+                name: 'Diagnose'
+            )
+        
+            documentCategory2.valid?
+            expect(documentCategory2.errors[:name]).to include("has already been taken")
+        end
+        
+        it 'is valid update category' do
+            documentCategory = TbDocumentCategory.create(
+                name: 'Diagnose'
+            )
+            documentCategory.update(
+                name: 'Medical Billing'
+            )
+            expect(documentCategory).to be_valid
+        end
+    end
 end
