@@ -90,4 +90,18 @@ RSpec.describe TbDocumentCategory, type: :model do
             expect(documentCategory).to be_valid
         end
     end
+
+    describe '-- GET Document Category' do
+        it 'is invalid get without valid id' do
+            expect { TbDocumentCategory.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid get category with valid id' do
+            TbDocumentCategory.create(
+                name: 'Diagnose'
+            )
+            documentCategory = TbDocumentCategory.find(1)
+            expect(documentCategory).to be_valid
+        end
+    end
 end
