@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  scope '/api' do
+		resources :document_categories, only: [:create, :index, :update, :destroy, :show]
+	end
 end
