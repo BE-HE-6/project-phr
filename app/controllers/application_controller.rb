@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-  # just add print
+  # just add print.
 end
