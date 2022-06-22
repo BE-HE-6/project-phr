@@ -1,0 +1,2 @@
+class BodyWeightHeight < ApplicationRecord
+end
