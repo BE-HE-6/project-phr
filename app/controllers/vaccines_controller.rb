@@ -1,10 +1,10 @@
 class VaccinesController < ApplicationController
     def index
-        @vaccines = TbVaccine.all
+        @vaccines = TbVaccine.withVaccineCategoryName.all
         jsonResponse(@vaccines)
     end
     def show
-        @vaccine = TbVaccine.find(params[:id])
+        @vaccine = TbVaccine.withVaccineCategoryName.find(params[:id])
         jsonResponse(@vaccine)
     end
     def create
