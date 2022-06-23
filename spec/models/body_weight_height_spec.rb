@@ -56,6 +56,7 @@ RSpec.describe BodyWeightHeight, type: :model do
 
   describe 'GET BodyWeightHeight' do
     it "is valid GET BodyWeightHeight with valid ID" do
+       # example this id = 1
        FactoryBot.create(:body_weight_height, id: 1)
        bwh = BodyWeightHeight.find(1)
        expect(bwh).to be_valid
