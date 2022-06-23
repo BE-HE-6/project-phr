@@ -56,9 +56,17 @@ RSpec.describe BodyWeightHeight, type: :model do
 
   describe 'GET BodyWeightHeight' do
     it "is valid GET BodyWeightHeight with valid ID" do
-       FactoryBot.create(:body_weight_height)
+       FactoryBot.create(:body_weight_height, id: 1)
        bwh = BodyWeightHeight.find(1)
        expect(bwh).to be_valid
+    end
+  end
+
+  describe 'DELETE BodyWeightHeight' do
+    it "is valid DELETE BodyWeightHeight" do
+      bwh = FactoryBot.create(:body_weight_height)
+      bwh.destroy
+      expect(bwh).to be_valid
     end
   end
 end
