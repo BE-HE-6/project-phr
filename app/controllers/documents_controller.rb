@@ -1,10 +1,19 @@
 class DocumentsController < ApplicationController
     def index
-        @document_categories = TbDocument.withDocumentCategoryName.all
-        jsonResponse(@document_categories)
+        @documents = TbDocument.withDocumentCategoryName.all
+        jsonResponse(@documents)
     end
     def show
-        @document_category = TbDocument.withDocumentCategoryName.find(params[:id])
-        jsonResponse(@document_category)
+        @document = TbDocument.withDocumentCategoryName.find(params[:id])
+        jsonResponse(@document)
     end
+    def create
+        @document = TbDocument.create!(document_params)
+        jsonResponse(@document, :created)
+    end
+    
+    private
+        def document_params
+            params.permit(:doc_name, :doc_upload, :user_id, :document_category_id)
+        end
 end
