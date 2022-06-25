@@ -1,0 +1,2 @@
+class TbBloodOxygenCondition < ApplicationRecord
+end

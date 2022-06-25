@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_25_043103) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_25_054904) do
+  create_table "tb_blood_oxygen_conditions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tb_blood_oxygen_conditions_on_name", unique: true
+  end
+
   create_table "tb_blood_oxygens", force: :cascade do |t|
     t.string "blood_oxygen", null: false
     t.string "note"
