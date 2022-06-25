@@ -90,4 +90,24 @@ RSpec.describe TbDocument, type: :model do
             expect(document).to be_valid
         end
     end
+
+    describe '-- DELETE Document' do
+        it 'is invalid delete without valid id' do
+            expect { TbDocument.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid delete document' do
+			documentCategory = TbDocumentCategory.create(
+				name: 'Diagnose'
+			)
+			document = TbDocument.create(
+				doc_name: 'Diagnosa Penyakit COVID-19',
+                doc_upload: 'file.jpg',
+                user_id: 1,
+                document_category_id: documentCategory.id
+			)
+            document.destroy
+            expect(document).to be_valid
+        end
+    end
 end
