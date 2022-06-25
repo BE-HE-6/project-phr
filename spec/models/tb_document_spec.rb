@@ -110,4 +110,24 @@ RSpec.describe TbDocument, type: :model do
             expect(document).to be_valid
         end
     end
+
+    describe '-- GET Document' do
+        it 'is invalid get without valid id' do
+            expect { TbDocument.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+        
+        it 'is valid get document with valid id' do
+			documentCategory = TbDocumentCategory.create(
+				name: 'Diagnose'
+			)
+			TbDocument.create(
+				doc_name: 'Diagnosa Penyakit COVID-19',
+                doc_upload: 'file.jpg',
+                user_id: 1,
+                document_category_id: documentCategory.id
+			)
+            document = TbDocument.find(1)
+            expect(document).to be_valid
+        end
+    end
 end
