@@ -5,4 +5,9 @@ class TbDocument < ApplicationRecord
     validates :doc_upload, presence: true
     validates :user_id, presence: true, numericality: true
     validates :document_category_id, presence: true, numericality: true
+
+    scope :withDocumentCategoryName, -> { 
+        select('tb_documents.*, tb_document_categories.name as document_category_name')
+        .joins(:tb_document_category) 
+    }
 end
