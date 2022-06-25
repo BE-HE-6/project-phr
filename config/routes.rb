@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   scope '/api' do
 		resources :document_categories, only: [:create, :index, :update, :destroy, :show]
+		resources :documents, only: [:create, :index, :destroy, :show]
 	end
 end
