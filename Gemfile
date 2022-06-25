@@ -83,3 +83,4 @@ group :test do
 end
 
 gem "ffi"
+gem 'carrierwave', '~> 1.0'
