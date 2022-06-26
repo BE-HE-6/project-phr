@@ -39,4 +39,71 @@ RSpec.describe "Documents", type: :request do
             end
         end
     end
+
+    describe 'POST /api/documents' do
+        context 'the request is invalid' do
+            it "name can't be blank" do
+                post '/api/documents', params: { 
+                    doc_name: "",
+                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
+                    user_id: 1,
+                    document_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc name can't be blank")
+            end
+            it "Document Upload can't be blank" do
+                post '/api/documents', params: { 
+                    doc_name: 'Diagnosa Penyakit COVID-19',
+                    doc_upload: "",
+                    user_id: 1,
+                    document_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc upload can't be blank")
+            end
+            it "user id can't be blank" do
+                post '/api/documents', params: { 
+                    doc_name: 'Diagnosa Penyakit COVID-19',
+                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
+                    user_id: nil,
+                    document_category_id: Faker::Number.between(from: 1, to: 5)
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
+            end
+            it "document category id can't be blank" do
+                post '/api/documents', params: { 
+                    doc_name: 'Diagnosa Penyakit COVID-19',
+                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
+                    user_id: 1,
+                    document_category_id: nil
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb document category must exist, Document category can't be blank, Document category is not a number")
+            end
+            it "document category must exist" do
+                post '/api/documents', params: { 
+                    doc_name: 'Diagnosa Penyakit COVID-19',
+                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
+                    user_id: 1,
+                    document_category_id: 1000
+                }
+                expect(response).to have_http_status(422)
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb document category must exist")
+            end
+        end
+
+        context 'the request is valid' do
+            it 'created a document' do
+                post '/api/documents', params: {  
+                    doc_name: 'Sertifikat Vaksin COVID-19',
+                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
+                    user_id: 1,
+                    document_category_id: Faker::Number.between(from: 1, to: 5)
+                } 
+                expect(response).to have_http_status(201)
+            end
+        end
+    end
 end
