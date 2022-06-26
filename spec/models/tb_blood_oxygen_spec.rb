@@ -46,4 +46,54 @@ RSpec.describe TbBloodOxygen, type: :model do
 			expect(bloodOxygen).to be_valid
 		end
   end
+
+  describe 'UPDATE data blood oxygen' do
+    it 'is invalid update without valid id' do
+      expect { 
+        bloodOxygen = TbBloodOxygen.find(1)
+        bloodOxygen.update(
+            blood_oxygen: 96
+        ) 
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'is invalid update with null oxygen_blood' do
+      bloodOxygenConditon = TbBloodOxygenCondition.create(
+				name: 'normal'
+			)
+
+      bloodOxygen = TbBloodOxygen.create(
+        blood_oxygen: 98,
+        date_time: Time.now,
+        user_id: 1,
+        blood_oxygen_condition_id: bloodOxygenConditon.id
+			)
+
+      bloodOxygen.update(
+        blood_oxygen: nil
+      )
+
+      bloodOxygen.valid?
+      expect(bloodOxygen.errors[:blood_oxygen]).to include("can't be blank")
+    end
+
+    it 'is valid update blood_oxygen' do
+      bloodOxygenConditon = TbBloodOxygenCondition.create(
+				name: 'normal'
+			)
+
+      bloodOxygen = TbBloodOxygen.create(
+        blood_oxygen: 98,
+        date_time: Time.now,
+        user_id: 1,
+        blood_oxygen_condition_id: bloodOxygenConditon.id
+			)
+
+      bloodOxygen.update(
+        blood_oxygen: 96
+      )
+
+      expect(bloodOxygen).to be_valid
+    end
+  end
 end
