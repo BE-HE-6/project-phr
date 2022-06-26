@@ -1,0 +1,2 @@
+class TbBloodGlucose < ApplicationRecord
+end
