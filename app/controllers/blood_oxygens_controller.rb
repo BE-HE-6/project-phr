@@ -3,11 +3,11 @@ class BloodOxygensController < ApplicationController
     @req_data = data_body_req
 
     condition = ""
-    if @req_data[:blood_oxygen] >= 95
+    if @req_data[:blood_oxygen].to_i >= 95
       condition = "normal"
-    elsif @req_data[:blood_oxygen] >= 91 && @req_data[:blood_oxygen] < 95
+    elsif @req_data[:blood_oxygen].to_i >= 91 && @req_data[:blood_oxygen].to_i < 95
       condition = "normal batas bawah"
-    elsif @req_data[:blood_oxygen] >= 70 && @req_data[:blood_oxygen] < 91
+    elsif @req_data[:blood_oxygen].to_i >= 70 && @req_data[:blood_oxygen].to_i < 91
       condition = "rendah"
     else 
       condition = "bahaya"
