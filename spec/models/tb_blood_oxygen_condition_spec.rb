@@ -82,7 +82,7 @@ RSpec.describe TbBloodOxygenCondition, type: :model do
 		expect { TbBloodOxygenCondition.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
 	end
 	
-	it 'is valid delete category' do
+	it 'is valid delete blood oxygen condition' do
 		bloodOxygenConditon = TbBloodOxygenCondition.create(
 			name: 'low'
 		)
