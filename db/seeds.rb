@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+TbBloodOxygenCondition.create(name: "normal")
+TbBloodOxygenCondition.create(name: "normal batas bawah")
+TbBloodOxygenCondition.create(name: "rendah")
+TbBloodOxygenCondition.create(name: "bahaya")

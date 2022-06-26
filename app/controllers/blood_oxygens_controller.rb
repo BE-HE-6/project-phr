@@ -3,10 +3,14 @@ class BloodOxygensController < ApplicationController
     @req_data = data_body_req
 
     condition = ""
-    if @req_data[:blood_oxygen] > 91
+    if @req_data[:blood_oxygen] >= 95
       condition = "normal"
-    else
-      condition = "low"
+    elsif @req_data[:blood_oxygen] >= 91 && @req_data[:blood_oxygen] < 95
+      condition = "normal batas bawah"
+    elsif @req_data[:blood_oxygen] >= 70 && @req_data[:blood_oxygen] < 91
+      condition = "rendah"
+    else 
+      condition = "bahaya"
     end
 
     bloodOxygenCondition = TbBloodOxygenCondition.where(name: condition).first
@@ -34,27 +38,41 @@ class BloodOxygensController < ApplicationController
   end
 
   def destroy
-    @bloodOxygen = TbBloodOxygen.find(params[:id])
-    @bloodOxygen.destroy
-    if (@bloodOxygen.valid?)
-      render json: {
-        status: 'success', 
-        data: 'data success be deleted'
-      } 
-    else
+    begin
+      @bloodOxygen = TbBloodOxygen.find(params[:id])
+      @bloodOxygen.destroy
+      if (@bloodOxygen.valid?)
+        render json: {
+          status: 'success', 
+          data: 'data success be deleted'
+        } 
+      else
+        render json: {
+          status: 'failed', 
+          errors: @bloodOxygen.errors
+        } 
+      end
+    rescue ActiveRecord::RecordNotFound => e
       render json: {
         status: 'failed', 
-        errors: @bloodOxygen.errors
+        errors: 'record not found'
       } 
     end
   end
 
   def show
-    @bloodOxygen = TbBloodOxygen.find(params[:id])
-    render json: {
-      status: 'success', 
-      data: @bloodOxygen
-    } 
+    begin
+      @bloodOxygen = TbBloodOxygen.joins(:tb_blood_oxygen_condition).select("tb_blood_oxygens.id, blood_oxygen, note, date_time, user_id, name").find(params[:id])
+      render json: {
+        status: 'success', 
+        data: @bloodOxygen
+      } 
+    rescue ActiveRecord::RecordNotFound => e
+      render json: {
+        status: 'failed', 
+        errors: 'record not found'
+      } 
+    end
   end
 
   def index
