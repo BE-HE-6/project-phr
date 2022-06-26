@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+TbBloodGlucoseCondition.create(name: "normal")
+TbBloodGlucoseCondition.create(name: "indikasi diabetes")
+TbBloodGlucoseCondition.create(name: "indikasi prediabetes")
