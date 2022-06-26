@@ -1,0 +1,2 @@
+class TbBloodGlucoseCondition < ApplicationRecord
+end
