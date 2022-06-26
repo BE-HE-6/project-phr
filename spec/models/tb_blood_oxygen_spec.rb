@@ -117,4 +117,25 @@ RSpec.describe TbBloodOxygen, type: :model do
       expect(bloodOxygen).to be_valid
     end
   end
+
+  describe 'GET data blood oxygen' do
+    it 'is invalid get without valid id' do
+      expect { TbBloodOxygen.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+    
+    it 'is valid get blood oxygen' do
+      bloodOxygenConditon = TbBloodOxygenCondition.create(
+				name: 'normal'
+			)
+
+      TbBloodOxygen.create(
+        blood_oxygen: 98,
+        date_time: Time.now,
+        user_id: 1,
+        blood_oxygen_condition_id: bloodOxygenConditon.id
+			)
+      bloodOxygen = TbBloodOxygen.find(1)
+      expect(bloodOxygen).to be_valid
+    end
+  end
 end
