@@ -35,14 +35,14 @@ RSpec.describe TbBloodOxygenCondition, type: :model do
 		expect { 
 			bloodOxygenConditon = TbBloodOxygenCondition.find(1)
 			bloodOxygenConditon.update(
-				name: 'Inactivated vaccines'
+				name: 'normal'
 			) 
 		}.to raise_error(ActiveRecord::RecordNotFound)
 	end
 
 	it 'is invalid update without a name' do
 		bloodOxygenConditon = TbBloodOxygenCondition.create(
-			name: "Inactivated vaccines"
+			name: "normal"
 		)
 		bloodOxygenConditon.update(
 			name: nil
