@@ -11,6 +11,10 @@ class DocumentsController < ApplicationController
         @document = TbDocument.create!(document_params)
         jsonResponse(@document, :created)
     end
+    def destroy
+        TbDocument.destroy(params[:id])
+        head :no_content
+    end
     
     private
         def document_params
