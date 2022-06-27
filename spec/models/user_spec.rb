@@ -26,9 +26,9 @@ RSpec.describe User, type: :model do
     end
 
     it "is invalid without a password" do
-      user = FactoryBot.build(:user, password: nil)
+      user = FactoryBot.build(:user, password_digest: nil)
       user.valid?
-      expect(user.errors[:password]).to include("can't be blank")
+      expect(user.errors[:password_digest]).to include("can't be blank")
     end
 
     it "is invalid without a name" do
@@ -138,31 +138,31 @@ RSpec.describe User, type: :model do
 
   context "when password has wrong format" do
     it "is invalid password have less than to 8 characters" do
-      user = FactoryBot.build(:user, password: "example")
+      user = FactoryBot.build(:user, password_digest: "example")
       user.valid?
-      expect(user.errors[:password]).to include("is too short (minimum is 8 characters)")
+      expect(user.errors[:password_digest]).to include("is too short (minimum is 8 characters)")
     end
 
     it "is invalid password without least 1 uppercase" do
-      expect(FactoryBot.build(:user, password: "examples20#")).not_to be_valid
+      expect(FactoryBot.build(:user, password_digest: "examples20#")).not_to be_valid
     end
 
     it "is invalid password without least 1 lowercase" do
-      expect(FactoryBot.build(:user, password: "EXAMPLES20#")).not_to be_valid
+      expect(FactoryBot.build(:user, password_digest: "EXAMPLES20#")).not_to be_valid
     end
 
     it "is invalid password without special char" do
-      expect(FactoryBot.build(:user, password: "Examples20")).not_to be_valid
+      expect(FactoryBot.build(:user, password_digest: "Examples20")).not_to be_valid
     end
 
     it "is invalid password without contain number" do
-      expect(FactoryBot.build(:user, password: "Examples#")).not_to be_valid
+      expect(FactoryBot.build(:user, password_digest: "Examples#")).not_to be_valid
     end
   end
 
   context "when password has correct format" do
     it "is valid password format" do
-      expect(FactoryBot.build(:user, password: "Examples20#")).to be_valid
+      expect(FactoryBot.build(:user, password_digest: "Examples20#")).to be_valid
     end
   end
 end

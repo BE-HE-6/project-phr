@@ -13,6 +13,6 @@ class Api::RegistrationsController < ApplicationController
 
   private
   def user_params
-    params.permit( :email, :password, :name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
+    params.permit( :email, :password_digest, :name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
   end
 end

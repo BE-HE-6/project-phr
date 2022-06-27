@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private

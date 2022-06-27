@@ -5,7 +5,7 @@ RSpec.describe "Api::Registrations", type: :request do
     context "when request is invalid status code 422" do
       it "email can't be blank" do
         post '/api/sign_up', params: { email: nil,
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2022-10-15",
@@ -16,7 +16,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "password can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: nil,
+                                       password_digest: nil,
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2022-10-15",
@@ -27,7 +27,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "name can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: nil,
                                        birth_place: "Jakarta",
                                        birth_date: "2022-10-15",
@@ -38,7 +38,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "birth place can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: nil,
                                        birth_date: "2022-10-15",
@@ -49,7 +49,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "birth date can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: nil,
@@ -60,7 +60,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "blood type can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2020-10-10",
@@ -71,7 +71,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "id BPJS can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2020-10-10",
@@ -82,7 +82,7 @@ RSpec.describe "Api::Registrations", type: :request do
       end
       it "id KTP can't be blank" do
         post '/api/sign_up', params: { email: "user@example.com",
-                                       password: "Examples20#",
+                                       password_digest: "Examples20#",
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2020-10-10",
@@ -96,7 +96,7 @@ RSpec.describe "Api::Registrations", type: :request do
     context "when request is valid status code 201" do
       it "user has been registered" do
         post '/api/sign_up', params: { email: 'user@example.com',
-                                       password: 'Examples20#',
+                                       password_digest: 'Examples20#',
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2022-10-15",
@@ -108,7 +108,7 @@ RSpec.describe "Api::Registrations", type: :request do
 
       it "user has been valid" do
         post '/api/sign_up', params: { email: 'user@example.com',
-                                       password: 'Examples20#',
+                                       password_digest: 'Examples20#',
                                        name: "User",
                                        birth_place: "Jakarta",
                                        birth_date: "2022-10-15",

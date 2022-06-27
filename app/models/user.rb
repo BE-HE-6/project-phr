@@ -7,8 +7,10 @@ class User < ApplicationRecord
   # has_many :tb_blood_pressures
   # has_many :tb_body_weight_heights
 
+  has_secure_password
+
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create}
-  validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[[:^alnum:]])/x, on: :create}
+  validates :password_digest, presence: true, length: { minimum: 8 }, format: { with: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[[:^alnum:]])/x, on: :create}
   validates :name, presence: true
   validates :birth_place, presence: true
   validates :birth_date, presence: true
