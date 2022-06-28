@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BodyWeightHeight, type: :model do
   describe 'CREATE BodyWeightHeight' do
-    it "is valid with user_id, weight, height, note, and bmi_calculation" do
+    it "is valid with user_id, weight, height, note,bmi_calculation, and date_time" do
       expect(FactoryBot.build(:body_weight_height)).to be_valid
     end
 
@@ -49,7 +49,7 @@ RSpec.describe BodyWeightHeight, type: :model do
         weight: 85.0,
         height: 175.0
       )
-      result = bwh.get_bmi
+      result = bwh.bmi_calculation
       expect(result).to eq(27.755102040816325)
     end
   end
