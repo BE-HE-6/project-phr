@@ -48,6 +48,9 @@ gem "bootsnap", require: false
 # Use authorization with pundit
 gem "pundit"
 
+# Use JSON Web Token (JWT)
+gem "jwt"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
