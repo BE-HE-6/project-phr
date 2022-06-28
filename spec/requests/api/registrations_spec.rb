@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::Registrations", type: :request do
   describe "POST /api/sign_up" do
-    context "when request is invalid sign out status code 422" do
+    context "when request is invalid sign up" do
       it "email can't be blank status code 422" do
         post '/api/sign_up', params: {
           user: {
