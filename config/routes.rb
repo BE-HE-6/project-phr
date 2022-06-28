@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api, defaults: { format: :json } do
     post "sign_up", to: "registrations#create"
+    post "sign_in", to: "users#login"
   end
 end

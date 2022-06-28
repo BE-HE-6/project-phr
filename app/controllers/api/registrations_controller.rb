@@ -1,4 +1,6 @@
 class Api::RegistrationsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   # POST '/api/sign_up'
   def create
     @user = User.create(user_params)
@@ -14,6 +16,6 @@ class Api::RegistrationsController < ApplicationController
 
   private
   def user_params
-    params.permit( :email, :password_digest, :name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
+    params.require(:user).permit(:email, :password, :name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
   end
 end

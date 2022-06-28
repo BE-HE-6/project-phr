@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     role { 0 }
     email { Faker::Internet.email }
-    password_digest { "Examples20#" }
+    password { "Examples20#" }
     name { "Mohammad Yusuf" }
     birth_place { "Jakarta" }
     birth_date { "2022-10-15" }
@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :invalid_user, parent: :user do
     role { 0 }
     email { nil }
-    password_digest { nil }
+    password { nil }
     name { nil }
     birth_place { nil }
     birth_date { nil }
