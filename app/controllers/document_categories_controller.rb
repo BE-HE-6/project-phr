@@ -20,8 +20,7 @@ class DocumentCategoriesController < ApplicationController
         head :no_content
     end
     
-    private
-        def document_category_params
-            params.permit(:name)
-        end
+    private def document_category_params
+        params.permit(:name)
+    end
 end

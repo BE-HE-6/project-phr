@@ -16,8 +16,7 @@ class DocumentsController < ApplicationController
         head :no_content
     end
     
-    private
-        def document_params
-            params.permit(:doc_name, :doc_upload, :user_id, :document_category_id)
-        end
+    private def document_params
+        params.permit(:doc_name, :doc_upload, :user_id, :document_category_id)
+    end
 end
