@@ -1,0 +1,2 @@
+class BloodPressureCondition < ApplicationRecord
+end
