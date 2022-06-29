@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "users#login"
+    get "profiles/:id", to: "profiles#show", as: "profile_id"
+    put "profiles/:id", to: "profiles#update", as: "profile_update"
   end
 end
