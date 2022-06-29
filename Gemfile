@@ -67,11 +67,11 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails"
-  gem "factory_bot_rails"
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
-  gem "faker"
+  gem 'faker'
   gem 'rails-controller-testing'
 end
 
@@ -82,5 +82,5 @@ group :test do
   gem "webdrivers"
 end
 
-gem "ffi"
+gem 'ffi'
 gem 'carrierwave', '~> 1.0'
