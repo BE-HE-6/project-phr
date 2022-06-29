@@ -6,14 +6,12 @@ RSpec.describe "Api::Users", type: :request do
     context "when request is invalid login" do
       it "email can't be blank status code 422" do
         post '/api/sign_in', params: {
-          email: nil,
-          password: "Examples20#"
+          email: nil
         }
         expect(response).to have_http_status(422)
       end
       it "password can't be blank status code 422" do
         post '/api/sign_in', params: {
-          email: "user@examples.com",
           password: nil
         }
         expect(response).to have_http_status(422)
@@ -24,7 +22,7 @@ RSpec.describe "Api::Users", type: :request do
       it "user has been successfully logged in" do
         post '/api/sign_in', params: {
             email: user.email,
-            password: "Examples20#"
+            password: user.password
           }
         expect(response.content_type).to eq "application/json; charset=utf-8"
       end
@@ -32,7 +30,7 @@ RSpec.describe "Api::Users", type: :request do
       it "user has been valid status code 200" do
         post '/api/sign_in', params: {
           email: user.email,
-          password: "Examples20#",
+          password: user.password,
         }
         expect(response).to have_http_status(200)
       end

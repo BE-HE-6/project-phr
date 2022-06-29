@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "Api::Profiles", type: :request do
   let(:profile_id) { users.first.id }
+  let(:user) { FactoryBot.create(
+    name: "New User",
+    birth_place: "Jogyakarta",
+    birth_date: "2022-12-12",
+    blood_type: "AB",
+    bpjs_id: "00127295921",
+    ktp_id: "3673033607930003"
+    )
+  }
   describe "GET /api/profiles/:id" do
     before { get "api/profiles/#{profile_id}" }
 
@@ -31,12 +40,12 @@ RSpec.describe "Api::Profiles", type: :request do
   describe "PUT /api/profiles/:id" do
     context "when the record exists" do
       before { put "/api/profiles/#{profile_id}", params: {
-          name: "New User",
-          birth_place: "DKI Jakarta",
-          birth_date: "2022-10-10",
-          blood_type: "A",
-          bpjs_id: "00127295921",
-          ktp_id: "3673033607930003"
+          name: name,
+          birth_place: birth_place,
+          birth_date: birth_date,
+          blood_type: blood_type,
+          bpjs_id: bpjs_id,
+          ktp_id: ktp_id
         }
       }
       it "record has been updated successfully." do
