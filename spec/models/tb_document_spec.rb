@@ -46,51 +46,7 @@ RSpec.describe TbDocument, type: :model do
 			expect(document).to be_valid
 		end
 	end
-
-    describe '-- UPDATE Document' do
-        it 'is invalid update without valid id' do
-            expect { 
-                document = TbDocument.find(1)
-                document.update(
-                    doc_name: 'Diagnosa Penyakit COVID-19'
-                ) 
-            }.to raise_error(ActiveRecord::RecordNotFound)
-        end
-
-        it 'is invalid update without a name' do
-			documentCategory = TbDocumentCategory.create(
-				name: 'Diagnose'
-			)
-			document = TbDocument.create(
-				doc_name: 'Diagnosa Penyakit COVID-19',
-                doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                user_id: 1,
-                document_category_id: documentCategory.id
-			)
-            document.update(
-                doc_name: nil
-            )
-            document.valid?
-            expect(document.errors[:doc_name]).to include("can't be blank")
-        end
-        
-        it 'is valid update document' do
-			documentCategory = TbDocumentCategory.create(
-				name: 'Diagnose'
-			)
-			document = TbDocument.create(
-				doc_name: 'Diagnosa Penyakit COVID-19',
-                doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                user_id: 1,
-                document_category_id: documentCategory.id
-			)
-            document.update(
-                doc_name: 'Sertifikat Vaksin COVID-19',
-            )
-            expect(document).to be_valid
-        end
-    end
-
+    
     describe '-- DELETE Document' do
         it 'is invalid delete without valid id' do
             expect { TbDocument.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
