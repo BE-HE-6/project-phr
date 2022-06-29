@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "DocumentCategories", type: :request do
+RSpec.describe DocumentCategoriesController do
 	let!(:document_categories) { create_list(:TbDocumentCategory, 5) }
     let(:document_category_id) { document_categories.first.id }
 
     describe 'GET /api/document_categories' do
-        before { get '/api/document_categories' }
+        before { get :index }
         it 'return document categories' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -17,7 +17,11 @@ RSpec.describe "DocumentCategories", type: :request do
     end
 
     describe 'GET /api/document_categories/:id' do
-        before { get "/api/document_categories/#{document_category_id}" }
+        before { 
+            get :show, params: {
+                id: document_category_id
+            }
+        }
     
         context 'when the record does not exist' do
             let(:document_category_id) { 100 }
@@ -43,7 +47,10 @@ RSpec.describe "DocumentCategories", type: :request do
 
     describe 'POST /api/document_categories' do
         context 'the request is invalid' do
-            before { post '/api/document_categories', params: { name: nil } }
+            before { 
+                post :create, 
+                params: { name: nil } 
+            }
             it 'return status code 422' do
                 expect(response).to have_http_status(422)
             end
@@ -53,7 +60,10 @@ RSpec.describe "DocumentCategories", type: :request do
         end
 
         context 'the request is valid' do
-            before { post '/api/document_categories', params: { name: 'Diagnose' } }
+            before { 
+                post :create, 
+                params: { name: 'Diagnose' } 
+            }
             it 'created a document category' do
                 expect(JSON.parse(response.body)['name']).to eq('Diagnose')
             end
@@ -65,10 +75,13 @@ RSpec.describe "DocumentCategories", type: :request do
     
 	describe 'PUT /api/document_categories/:id' do
         context 'when the record exists' do
-            before { put "/api/document_categories/#{document_category_id}", params: { name: 'Medical Billing' } }
-            it 'updated the record' do
-                expect(response.body).to be_empty
-            end
+            before { 
+                put :update, 
+                params: { 
+                    id: document_category_id,
+                    name: 'Medical Billing' 
+                } 
+            }
             it 'return status code 204' do
                 expect(response).to have_http_status(204)
             end
@@ -77,14 +90,20 @@ RSpec.describe "DocumentCategories", type: :request do
 
     describe 'DELETE /api/document_categories/:id' do
         context 'when the record does not exist' do
-            before { delete "/api/document_categories/1000" }
+            before { 
+                delete :destroy, 
+                params: { id: 1000 }
+            }
             it 'return status code ' do
                 expect(response).to have_http_status(404)
                 expect(JSON.parse(response.body)['message']).to match("Couldn't find TbDocumentCategory with 'id'=1000")
             end
         end
         context 'when the record exists' do
-            before { delete "/api/document_categories/#{document_category_id}" }
+            before { 
+                delete :destroy, 
+                params: { id: document_category_id }
+            }
             it 'return status code 204' do
                 expect(response).to have_http_status(204)
             end

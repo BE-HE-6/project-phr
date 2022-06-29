@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Documents", type: :request do
+RSpec.describe DocumentsController do
 	let!(:document_categories) { create_list(:TbDocumentCategory, 5) }
     let!(:documents) { create_list(:TbDocument, 5) }
     let(:document_id) { documents.first.id }
 
     describe "GET /api/documents" do
-        before { get '/api/documents' }
+        before { get :index }
         it 'return documents' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -18,7 +18,11 @@ RSpec.describe "Documents", type: :request do
     end
 
     describe 'GET /api/documents/:id' do
-        before { get "/api/documents/#{document_id}" }
+        before { 
+            get :show, params: {
+                id: document_id
+            }
+        }
         context 'when the record does not exist' do
             let(:document_id) { 100 }
         
@@ -43,7 +47,7 @@ RSpec.describe "Documents", type: :request do
     describe 'POST /api/documents' do
         context 'the request is invalid' do
             it "name can't be blank" do
-                post '/api/documents', params: { 
+                post :create, params: { 
                     doc_name: "",
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: 1,
@@ -53,7 +57,7 @@ RSpec.describe "Documents", type: :request do
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc name can't be blank")
             end
             it "Document Upload can't be blank" do
-                post '/api/documents', params: { 
+                post :create, params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: "",
                     user_id: 1,
@@ -63,7 +67,7 @@ RSpec.describe "Documents", type: :request do
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc upload can't be blank")
             end
             it "user id can't be blank" do
-                post '/api/documents', params: { 
+                post :create, params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: nil,
@@ -73,7 +77,7 @@ RSpec.describe "Documents", type: :request do
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
             end
             it "document category id can't be blank" do
-                post '/api/documents', params: { 
+                post :create, params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: 1,
@@ -83,7 +87,7 @@ RSpec.describe "Documents", type: :request do
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb document category must exist, Document category can't be blank, Document category is not a number")
             end
             it "document category must exist" do
-                post '/api/documents', params: { 
+                post :create, params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: 1,
@@ -96,7 +100,7 @@ RSpec.describe "Documents", type: :request do
 
         context 'the request is valid' do
             it 'created a document' do
-                post '/api/documents', params: {  
+                post :create, params: {  
                     doc_name: 'Sertifikat Vaksin COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: 1,
@@ -109,14 +113,20 @@ RSpec.describe "Documents", type: :request do
 
     describe 'DELETE /api/documents/:id' do
         context 'when the record does not exist' do
-            before { delete "/api/documents/1000" }
+            before { 
+                delete :destroy, 
+                params: { id: 1000 }
+            }
             it 'return status code ' do
                 expect(response).to have_http_status(404)
                 expect(JSON.parse(response.body)['message']).to match("Couldn't find TbDocument with 'id'=1000")
             end
         end
         context 'when the record exists' do
-            before { delete "/api/documents/#{document_id}" }
+            before { 
+                delete :destroy, 
+                params: { id: document_id }
+            }
             it 'return status code 204' do
                 expect(response).to have_http_status(204)
             end
