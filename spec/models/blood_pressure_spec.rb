@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe BloodPressure, type: :model do
+
+  it { should belong_to(:blood_pressure_condition)}
+
   describe 'CREATE a Blood Pressure' do
     it 'is valid with a user_id, sistole, diastole, pulse, blood_pressure_condition and datetime' do
       blood_pressure_condition = FactoryBot.create(:blood_pressure_condition)
