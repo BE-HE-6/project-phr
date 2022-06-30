@@ -1,13 +1,13 @@
 class BloodOxygensController < ApplicationController
   def create
-    @req_data = data_body_req
+    req_data = data_body_req
 
     @bloodOxygen = TbBloodOxygen.create(
-      blood_oxygen: @req_data[:blood_oxygen],
-      note: @req_data[:note],
+      blood_oxygen: req_data[:blood_oxygen],
+      note: req_data[:note],
       date_time: Time.now,
-      user_id: @req_data[:user_id],
-      blood_oxygen_condition_id: @req_data[:blood_oxygen_condition_id]
+      user_id: req_data[:user_id],
+      blood_oxygen_condition_id: req_data[:blood_oxygen_condition_id]
     )
 
     if (@bloodOxygen.valid?)
