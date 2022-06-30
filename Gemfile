@@ -68,6 +68,8 @@ end
 
 group :development, :test do
   gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :test do
@@ -76,3 +78,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "ffi"
