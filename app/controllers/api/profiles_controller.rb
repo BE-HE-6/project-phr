@@ -24,6 +24,6 @@ class Api::ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.permit(:name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
+    params.require(:profile).permit(:email, :password, :name, :birth_place, :birth_date, :blood_type, :bpjs_id, :ktp_id)
   end
 end
