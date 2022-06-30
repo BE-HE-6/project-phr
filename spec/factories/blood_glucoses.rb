@@ -4,6 +4,6 @@ FactoryBot.define do
         note { Faker::Lorem.sentence }
         date_time { Time.now }
         user_id { Faker::Number.between(from: 1, to: 3) }
-        blood_oxygen_condition_id { Faker::Number.between(from: 1, to: 3) }
+        blood_glucose_condition_id { Faker::Number.between(from: 1, to: 3) }
     end
 end

@@ -1,37 +1,27 @@
 class BloodGlucosesController < ApplicationController
   def create
-    @req_data = data_body_req
-
-    condition = ""
-    if @req_data[:blood_glucose] < 140
-      condition = "normal"
-    elsif @req_data[:blood_glucose] >= 140 && @req_data[:blood_glucose] < 200
-      condition = "indikasi prediabetes"
-    else
-      condition = "indikasi diabetes"
-    end
-
-    bloodGlucoseCondition = TbBloodGlucoseCondition.where(name: condition).first
+    req_data = data_body_req
 
     @bloodGlucose = TbBloodGlucose.create(
-      blood_glucose: @req_data[:blood_glucose],
-      note: @req_data[:note],
+      blood_glucose: req_data[:blood_glucose],
+      note: req_data[:note],
       date_time: Time.now,
-      user_id: @req_data[:user_id],
-      blood_glucose_condition_id: bloodGlucoseCondition.id
+      user_id: req_data[:user_id],
+      blood_glucose_condition_id: req_data[:blood_glucose_condition_id]
     )
 
     if (@bloodGlucose.valid?)
       render json: {
         status: 'success', 
         message: 'Data Blood Glucose Added'
-      } 
+      }, status: :created 
     else 
       render json: {
         status: 'failed', 
         errors: @bloodGlucose.errors
-      } 
+      }, status: :unprocessable_entity 
     end
+
   end
 
   def destroy
@@ -41,8 +31,8 @@ class BloodGlucosesController < ApplicationController
       if (@bloodGlucose.valid?)
         render json: {
           status: 'success', 
-          data: 'data success be deleted'
-        } 
+          message: 'data success be deleted'
+        }, status: :no_content 
       else
         render json: {
           status: 'failed', 
@@ -52,8 +42,8 @@ class BloodGlucosesController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       render json: {
         status: 'failed', 
-        errors: 'record not found'
-      } 
+        message: 'data not found'
+      }, status: :not_found 
     end
   end
 
@@ -67,8 +57,8 @@ class BloodGlucosesController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       render json: {
         status: 'failed', 
-        errors: 'record not found'
-      } 
+        message: 'data not found'
+      }, status: :not_found 
     end
   end
 
@@ -82,6 +72,6 @@ class BloodGlucosesController < ApplicationController
 
   private
   def data_body_req
-    params.require(:data).permit(:blood_glucose, :note, :user_id)
+    params.require(:data).permit(:blood_glucose, :note, :user_id, :blood_glucose_condition_id)
   end
 end
