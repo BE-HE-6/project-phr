@@ -2,37 +2,24 @@ class BloodOxygensController < ApplicationController
   def create
     @req_data = data_body_req
 
-    condition = ""
-    if @req_data[:blood_oxygen].to_i >= 95
-      condition = "normal"
-    elsif @req_data[:blood_oxygen].to_i >= 91 && @req_data[:blood_oxygen].to_i < 95
-      condition = "normal batas bawah"
-    elsif @req_data[:blood_oxygen].to_i >= 70 && @req_data[:blood_oxygen].to_i < 91
-      condition = "rendah"
-    else 
-      condition = "bahaya"
-    end
-
-    bloodOxygenCondition = TbBloodOxygenCondition.where(name: condition).first
-
     @bloodOxygen = TbBloodOxygen.create(
       blood_oxygen: @req_data[:blood_oxygen],
       note: @req_data[:note],
       date_time: Time.now,
       user_id: @req_data[:user_id],
-      blood_oxygen_condition_id: bloodOxygenCondition.id
+      blood_oxygen_condition_id: @req_data[:blood_oxygen_condition_id]
     )
 
     if (@bloodOxygen.valid?)
       render json: {
         status: 'success', 
         message: 'Data Blood Oxygen Added'
-      } 
+      }, status: :created 
     else 
       render json: {
         status: 'failed', 
         errors: @bloodOxygen.errors
-      } 
+      }, status: :unprocessable_entity 
     end
 
   end
@@ -44,8 +31,8 @@ class BloodOxygensController < ApplicationController
       if (@bloodOxygen.valid?)
         render json: {
           status: 'success', 
-          data: 'data success be deleted'
-        } 
+          message: 'data success be deleted'
+        }, status: :no_content 
       else
         render json: {
           status: 'failed', 
@@ -55,8 +42,8 @@ class BloodOxygensController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       render json: {
         status: 'failed', 
-        errors: 'record not found'
-      } 
+        message: 'data not found'
+      }, status: :not_found 
     end
   end
 
@@ -70,8 +57,8 @@ class BloodOxygensController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       render json: {
         status: 'failed', 
-        errors: 'record not found'
-      } 
+        message: 'data not found'
+      }, status: :not_found 
     end
   end
 
@@ -85,6 +72,6 @@ class BloodOxygensController < ApplicationController
 
   private
   def data_body_req
-    params.require(:data).permit(:blood_oxygen, :note, :user_id)
+    params.require(:data).permit(:blood_oxygen, :note, :user_id, :blood_oxygen_condition_id)
   end
 end
