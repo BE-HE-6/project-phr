@@ -1,0 +1,2 @@
+class BloodPressureConditionController < ApplicationController
+end
