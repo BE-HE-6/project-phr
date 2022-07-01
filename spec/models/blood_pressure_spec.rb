@@ -35,6 +35,7 @@ RSpec.describe BloodPressure, type: :model do
       bloodPressure.valid?
       expect(bloodPressure.errors[:user_id]).to include("can't be blank")
       expect(bloodPressure.errors[:user_id]).to include("is not a number")
+      expect(bloodPressure.errors[:blood_pressure_condition]).to include("must exist")
       expect(bloodPressure.errors[:blood_pressure_condition_id]).to include("can't be blank")
       expect(bloodPressure.errors[:blood_pressure_condition_id]).to include("is not a number")
       expect(bloodPressure.errors[:sistole]).to include("can't be blank")
