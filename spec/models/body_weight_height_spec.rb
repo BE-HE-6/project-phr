@@ -78,21 +78,4 @@ RSpec.describe BodyWeightHeight, type: :model do
       expect(bwh).to be_valid
     end
   end
-
-  describe 'UPDATE BodyWeightHeight' do
-    it 'is invalid update without valid id' do
-      FactoryBot.create(:body_weight_height, id: 1)
-      bwh = BodyWeightHeight.find(1)
-      expect(bwh).to be_valid
-    end
-
-    it 'is invalid update with nil data' do
-      bwh = FactoryBot.create(:body_weight_height, id: 1)
-      bwh.update(
-        weight: nil
-      )
-      bwh.valid?
-      expect(bwh.errors[:weight]).to include("can't be blank")
-    end
-  end
 end
