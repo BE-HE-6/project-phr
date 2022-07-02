@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fd7cbbe-da0b-40db-b399-182a5548e6ec" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/FT-1/Registration.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31304b48-6820-486a-8ef7-e62c3655176a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31304b48-6820-486a-8ef7-e62c3655176a.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/api/profiles_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/profiles_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/requests/api/profiles_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/requests/api/profiles_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +53,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hendri\RubymineProjects\project-phr" />
+    </key>
+  </component>
   <component name="RubyModuleManagerSettings">
     <option name="blackListedRootsPaths">
       <list>
@@ -166,6 +173,10 @@
       <workItem from="1656308278283" duration="18043000" />
       <workItem from="1656329386872" duration="3967000" />
       <workItem from="1656591207055" duration="4976000" />
+      <workItem from="1656610848620" duration="19000" />
+      <workItem from="1656611771964" duration="90000" />
+      <workItem from="1656743777550" duration="7554000" />
+      <workItem from="1656757066805" duration="306000" />
     </task>
     <servers />
   </component>

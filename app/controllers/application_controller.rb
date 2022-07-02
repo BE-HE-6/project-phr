@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Pundit::Authorization
   protect_from_forgery with: :null_session
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def encode_token(payload)
     JWT.encode(payload, 'secret')
@@ -30,11 +28,5 @@ class ApplicationController < ActionController::Base
 
   def authorize
     render json: { message: 'You have to log in' }, status: :unauthorized unless authorized_user
-  end
-
-  private
-  def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_back(fallback_location: root_path)
   end
 end
