@@ -2,28 +2,22 @@ class BodyWeightHeightController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index
-        @bwh = BodyWeightHeight.all
-        # render json: { status: :success, message: 'loaded body weight height data', data: @bwh }
-        jsonResponse(@bwh)
+        @bwh = BodyWeightHeight.paginate(page: params[:page], per_page: 8)
+        jsonResponse(
+            page: params[:page],
+            total_pages: @bwh.total_pages,
+            data: @bwh
+        )
     end
 
     def show
         @bwh = BodyWeightHeight.find(params[:id])
-        # render json: { status: :success, message: 'loaded the specific weight and height data', data: @bwh }
         jsonResponse(@bwh)
     end
 
     def create
         @bwh = BodyWeightHeight.create!(bwh_params)
         jsonResponse(@bwh, :created)
-        # if @bwh.save
-        #     render status: :created, json: {
-        #         message: "Body Weight and Height has successfully been added.",
-        #         data: @bwh
-        #     }
-        # else 
-        #     render json: @bwh.errors, status: :unprocessable_entity
-        # end
     end
 
     def destroy
