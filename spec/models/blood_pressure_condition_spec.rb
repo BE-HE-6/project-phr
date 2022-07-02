@@ -14,8 +14,12 @@ RSpec.describe BloodPressureCondition, type: :model do
       end
   
       it "is invalid with a duplicate name" do
-        bpc1 = FactoryBot.create(:blood_pressure_condition)
-        bpc2 = FactoryBot.build(:blood_pressure_condition)
+        bpc1 = BloodPressureCondition.create(
+          name: 'Wake Up'
+        )
+        bpc2 = BloodPressureCondition.create(
+          name: 'Wake Up'
+        )
         bpc2.valid?
         expect(bpc2.errors[:name]).to include("has already been taken")
       end
@@ -80,6 +84,4 @@ RSpec.describe BloodPressureCondition, type: :model do
       end
     end
     
-    
-  
 end
