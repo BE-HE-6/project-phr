@@ -22,9 +22,12 @@
     POST /api/documents
     ```
 
-    | Parameter | Type     | Description    |
-    | :-------- | :------- | :------------- |
-    | `name`    | `string` | **_Required_** |
+    | Parameter              | Type                    | Description    |
+    | :--------------------- | :---------------------- | :------------- |
+    | `doc_name`             | `string`                | **_Required_** |
+    | `doc_upload`           | `file (jpg, jpeg, png)` | **_Required_** |
+    | `user_id`              | `integer`               | **_Required_** |
+    | `document_category_id` | `integer`               | **_Required_** |
 
 -   ##### Delete Document
 
