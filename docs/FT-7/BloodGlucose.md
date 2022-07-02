@@ -1,4 +1,4 @@
-### Blood Glucose Condition
+### Blood Glucose
 
 #### GET Method
 
