@@ -2,11 +2,11 @@
 
 #### GET Method
 
-```http
+```ruby
   GET /api/blood_pressure_condition
 ```
 
-```http
+```ruby
   GET /api/blood_pressure_condition/:id
 ```
 
@@ -16,7 +16,7 @@
 
 #### POST Method
 
-```http
+```ruby
   POST /blood_pressure_condition
 ```
 
@@ -26,7 +26,7 @@
 | :-------- | :------- | :----------- |
 | `name`    | `string` | **Required** |
 
-```http
+```ruby
   PUT /api/blood_pressure_condition/:id
 ```
 
@@ -37,7 +37,7 @@
 
 #### DELETE Method
 
-```http
+```ruby
   DELETE /api/blood_pressure_condition/:id
 ```
 
