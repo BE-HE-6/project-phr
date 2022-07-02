@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_30_043450) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_02_084926) do
+  create_table "tb_join_lab_measurements", force: :cascade do |t|
+    t.integer "lab_measurement_id", null: false
+    t.integer "lab_result_id", null: false
+    t.integer "lab_result_tb_user_id", null: false
+    t.integer "lab_result_tb_lab_result_category_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_lab_measurements", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tb_lab_measurements_on_name", unique: true
+  end
+
   create_table "tb_lab_result_categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
