@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-    999.times do |id|
+    3.times do |id|
         BodyWeightHeight.create!(
             user_id: Faker::Number.between(from: 1, to: 4),
             weight: Faker::Number.decimal(l_digits: 2),
@@ -17,4 +17,4 @@
         )
     end
 
-    puts "Created #{BodyWeightHeight.count} movies"
+    puts "Created #{BodyWeightHeight.count} BodyWeightHeight"
