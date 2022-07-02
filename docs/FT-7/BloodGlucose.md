@@ -41,7 +41,7 @@
 #### DELETE Method
 
 ```http
-  DELETE/api/blood_glucoses/:id
+  DELETE /api/blood_glucoses/:id
 ```
 
 | Parameter | Type      | Description  |
