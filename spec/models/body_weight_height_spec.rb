@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe BodyWeightHeight, type: :model do
   describe 'CREATE BodyWeightHeight' do
-    it "is valid with user_id, weight, height, note,bmi_calculation, and date_time" do
+    it 'is valid with user_id, weight, height, note,bmi_calculation, and date_time' do
       expect(FactoryBot.build(:body_weight_height)).to be_valid
     end
 
-    it "is invalid with nil data weight, height, bmi_calculation and datetime" do
+    it 'is invalid with nil data weight, height, bmi_calculation and datetime' do
       bwh = BodyWeightHeight.create(
         user_id: nil,
         weight: nil,
@@ -22,18 +22,18 @@ RSpec.describe BodyWeightHeight, type: :model do
       expect(bwh.errors[:date_time]).to include("can't be blank")
     end
 
-    it "is invalid with weight and height not a number" do
+    it 'is invalid with weight and height not a number' do
       bwh = FactoryBot.build(
           :body_weight_height,
-          weight: "Delapan puluh koma lima",
-          height: "Seratus duabelas koma lima"
+          weight: 'Delapan puluh koma lima',
+          height: 'Seratus duabelas koma lima'
         )
       bwh.valid?
       expect(bwh.errors[:weight]).to include("is not a number")
       expect(bwh.errors[:height]).to include("is not a number")
     end
 
-    it "is invalid with weight and height lower than 1" do
+    it 'is invalid with weight and height lower than 1' do
       bwh = FactoryBot.build(
         :body_weight_height,
         weight: 0.1,
@@ -43,7 +43,7 @@ RSpec.describe BodyWeightHeight, type: :model do
       expect(bwh.errors[:weight]).to include("must be greater than or equal to 1")
     end
 
-    it "has valid bmi_calculation" do
+    it 'has valid bmi_calculation' do
       bwh = FactoryBot.build(
         :body_weight_height,
         weight: 85.0,
@@ -55,7 +55,11 @@ RSpec.describe BodyWeightHeight, type: :model do
   end
 
   describe 'GET BodyWeightHeight' do
-    it "is valid GET BodyWeightHeight with valid ID" do
+    it 'is invalid get without valid id' do
+      expect { BodyWeightHeight.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'is valid GET BodyWeightHeight with valid ID' do
       # example this id = 1
       FactoryBot.create(:body_weight_height, id: 1)
       bwh = BodyWeightHeight.find(1)
@@ -64,7 +68,11 @@ RSpec.describe BodyWeightHeight, type: :model do
   end
 
   describe 'DELETE BodyWeightHeight' do
-    it "is valid DELETE BodyWeightHeight" do
+    it 'is invalid delete without valid id' do
+      expect { BodyWeightHeight.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'is valid DELETE BodyWeightHeight' do
       bwh = FactoryBot.create(:body_weight_height)
       bwh.destroy
       expect(bwh).to be_valid
@@ -72,12 +80,13 @@ RSpec.describe BodyWeightHeight, type: :model do
   end
 
   describe 'UPDATE BodyWeightHeight' do
-    it "is invalid update without valid id" do
+    it 'is invalid update without valid id' do
       FactoryBot.create(:body_weight_height, id: 1)
       bwh = BodyWeightHeight.find(1)
       expect(bwh).to be_valid
     end
-    it "is invalid update with nil data" do
+
+    it 'is invalid update with nil data' do
       bwh = FactoryBot.create(:body_weight_height, id: 1)
       bwh.update(
         weight: nil
