@@ -42,6 +42,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Active model serializer
+gem 'active_model_serializers', '~> 0.10.13'
+
+# Pagination rails
+gem 'will_paginate', '~> 3.3'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
