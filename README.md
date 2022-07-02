@@ -71,6 +71,10 @@ rspec -fd
 
 #### [Blood Pressure Condition](./docs/FT-5/BloodPressureCondition.md)
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e)
+
 #### [Blood Pressure](./docs/FT-5/BloodPressureCondition.md)
 
-<!-- [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/5427578/UyrAEbpK) -->
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e)
+
+<!-- [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e) -->

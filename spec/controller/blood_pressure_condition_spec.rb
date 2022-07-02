@@ -62,7 +62,6 @@ RSpec.describe "BloodPressureConditions", type: :request do
         expect(response).to have_http_status(:created)
       end
     end
-    
   end
 
   describe "PUT /api/blood_pressure_condition/:id" do
@@ -94,6 +93,4 @@ RSpec.describe "BloodPressureConditions", type: :request do
     end
   end
   
-
-
 end

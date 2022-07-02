@@ -1,5 +1,4 @@
 class BloodPressureConditionController < ApplicationController
-    
 
     def index
         @bpc = BloodPressureCondition.all
@@ -23,7 +22,6 @@ class BloodPressureConditionController < ApplicationController
 
     def destroy
         @bpc = BloodPressureCondition.find(params[:id]).destroy!
-        # jsonResponse(@bpc, :no_content)
         head :no_content
     end
 
@@ -31,5 +29,5 @@ class BloodPressureConditionController < ApplicationController
     def bpc_params
         params.permit(:name)
     end
-
+    
 end

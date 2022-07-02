@@ -1,6 +1,5 @@
 class BloodPressureController < ApplicationController
 
-    
     def index
         @bp = BloodPressure.all
         jsonResponse(@bp)
@@ -25,4 +24,5 @@ class BloodPressureController < ApplicationController
     def bp_params
         params.permit(:user_id, :blood_pressure_condition_id, :sistole, :diastole, :pulse, :note, :date_time)
     end
+    
 end
