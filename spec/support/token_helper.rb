@@ -1,0 +1,26 @@
+module TokenHelper
+  def authorize
+    post '/api/sign_up', params: {
+      user: {
+        email: "user@examples.com",
+        password: "Examples20#",
+        name: "User",
+        birth_place: "Jakarta",
+        birth_date: "2022-10-10",
+        blood_type: "B",
+        bpjs_id: "00127295921",
+        ktp_id: "3673033607930003"
+      }
+    }
+
+    post '/api/sign_in', params: {
+      email: "user@examples.com",
+      password: "Examples20#"
+    }
+    read_token = JSON.parse(response.body)["token"]
+  end
+end
+
+RSpec.configure do |c|
+  c.include TokenHelper
+end
