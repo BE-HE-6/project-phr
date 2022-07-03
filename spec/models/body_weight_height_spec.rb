@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BodyWeightHeight, type: :model do
+
   describe 'CREATE BodyWeightHeight' do
     it 'is valid with user_id, weight, height, note,bmi_calculation, and date_time' do
       expect(FactoryBot.build(:body_weight_height)).to be_valid
@@ -78,4 +79,5 @@ RSpec.describe BodyWeightHeight, type: :model do
       expect(bwh).to be_valid
     end
   end
+  
 end
