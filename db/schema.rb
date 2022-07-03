@@ -80,6 +80,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.datetime "date_time", null: false
     t.integer "user_id", null: false
     t.integer "blood_oxygen_condition_id", null: false
+  end
+
+  create_table "tb_vaccine_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tb_vaccine_categories_on_name", unique: true
+  end
+
+  create_table "tb_vaccines", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "vaccine_category_id", null: false
+    t.string "name", null: false
+    t.string "location", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
