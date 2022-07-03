@@ -78,3 +78,11 @@ rspec -fd
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e)
 
 <!-- [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e) -->
+
+#### [Blood Pressure](./docs/FT-5/BloodPressureCondition.md)
+
+#### [Blood Oxygen Condition](./docs/FT-6/BloodOxygenCondition.md)
+
+#### [Blood Oxygen](./docs/FT-6/BloodOxygen.md)
+
+<!-- [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/5427578/UyrAEbpK) -->

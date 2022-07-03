@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
   create_table "users", force: :cascade do |t|
     t.integer "role", default: 0
@@ -51,6 +50,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.text "note", null: true
     t.float "bmi_calculation"
     t.datetime "date_time"
+  end
+
+  create_table "tb_blood_oxygen_conditions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tb_blood_oxygen_conditions_on_name", unique: true
+  end
+
+  create_table "tb_blood_oxygens", force: :cascade do |t|
+    t.string "blood_oxygen", null: false
+    t.string "note"
+    t.datetime "date_time", null: false
+    t.integer "user_id", null: false
+    t.integer "blood_oxygen_condition_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
