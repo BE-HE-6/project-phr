@@ -20,8 +20,7 @@ class VaccineCategoriesController < ApplicationController
         head :no_content
     end
     
-    private
-        def vaccine_category_params
-            params.permit(:name)
-        end
+    private def vaccine_category_params
+        params.permit(:name)
+    end
 end

@@ -46,51 +46,7 @@ RSpec.describe TbVaccine, type: :model do
 			expect(vaccine).to be_valid
 		end
 	end
-
-    describe '-- UPDATE Vaccine' do
-        it 'is invalid update without valid id' do
-            expect { 
-                vaccine = TbVaccine.find(1)
-                vaccine.update(
-                    name: 'Vaksin COVID-19'
-                ) 
-            }.to raise_error(ActiveRecord::RecordNotFound)
-        end
-
-        it 'is invalid update without a name' do
-			vaccineCategory = TbVaccineCategory.create(
-				name: 'Inactivated vaccines'
-			)
-			vaccine = TbVaccine.create(
-				name: 'Vaksin COVID-19',
-                location: 'POLRES Kota Bekasi',
-                user_id: 1,
-                vaccine_category_id: vaccineCategory.id
-			)
-            vaccine.update(
-                name: nil
-            )
-            vaccine.valid?
-            expect(vaccine.errors[:name]).to include("can't be blank")
-        end
-        
-        it 'is valid update Vaccine' do
-			vaccineCategory = TbVaccineCategory.create(
-				name: 'Inactivated vaccines'
-			)
-			vaccine = TbVaccine.create(
-				name: 'Vaksin COVID-19',
-                location: 'POLRES Kota Bekasi',
-                user_id: 1,
-                vaccine_category_id: vaccineCategory.id
-			)
-            vaccine.update(
-                location: 'POLRES Kota Jakarta',
-            )
-            expect(vaccine).to be_valid
-        end
-    end
-
+    
     describe '-- DELETE Vaccine' do
         it 'is invalid delete without valid id' do
             expect { TbVaccine.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
