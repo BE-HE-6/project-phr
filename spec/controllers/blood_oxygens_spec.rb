@@ -6,7 +6,9 @@ RSpec.describe "BloodOxygens", type: :request do
   let(:blood_oxygen_id) { blood_oxygens.first.id }
 
   describe "GET /api/blood_oxygens" do
-    before { get '/api/blood_oxygens' }
+    before { get '/api/blood_oxygens', headers: {
+      Authorization: "Bearer #{authorize}"
+    } }
     it 'return blood oxygens' do
         json_result = JSON.parse(response.body)
 
@@ -21,7 +23,9 @@ RSpec.describe "BloodOxygens", type: :request do
 
   describe 'GET /api/blood_oxygens/:id' do
     before { 
-        get "/api/blood_oxygens/#{blood_oxygen_id}"
+        get "/api/blood_oxygens/#{blood_oxygen_id}", headers: {
+          Authorization: "Bearer #{authorize}"
+        }
     }
     context 'when the record does not exist' do
       let(:blood_oxygen_id) { 100000 }
@@ -51,6 +55,8 @@ RSpec.describe "BloodOxygens", type: :request do
                 "note":"Test 1",
                 "user_id":1,
                 "blood_oxygen_condition_id":Faker::Number.between(from: 1, to: 3)
+            }, headers: {
+              Authorization: "Bearer #{authorize}"
             }
         }
           expect(response).to have_http_status(422)
@@ -101,7 +107,9 @@ RSpec.describe "BloodOxygens", type: :request do
   describe 'DELETE /api/blood_oxygens/:id' do
     context 'when the record does not exist' do
         before { 
-            delete "/api/blood_oxygens/#{1000000}"
+            delete "/api/blood_oxygens/#{1000000}", headers: {
+              Authorization: "Bearer #{authorize}"
+            }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -110,7 +118,9 @@ RSpec.describe "BloodOxygens", type: :request do
     end
     context 'when the record exists' do
         before { 
-            delete "/api/blood_oxygens/#{blood_oxygen_id}"
+            delete "/api/blood_oxygens/#{blood_oxygen_id}", headers: {
+              Authorization: "Bearer #{authorize}"
+            }
         }
         it 'return status code 204' do
             expect(response).to have_http_status(204)

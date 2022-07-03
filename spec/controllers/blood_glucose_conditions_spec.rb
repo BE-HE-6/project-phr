@@ -6,7 +6,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
   let(:blood_glucose_condition2_name) { blood_glucose_conditions.second.name }
   
   describe 'GET /api/blood_glucose_conditions' do
-    before { get '/api/blood_glucose_conditions' }
+    before { get '/api/blood_glucose_conditions', headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
     it 'return blood glucose condition' do
         json_result = JSON.parse(response.body)
         expect(json_result).not_to be_empty
@@ -23,7 +25,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
         before { post  '/api/blood_glucose_conditions', params:{
             "blood_glucose_condition":{
                 "name":""
-            }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         } }
         it 'return status code 422' do
             expect(response).to have_http_status(422)
@@ -37,7 +41,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
         before { post  '/api/blood_glucose_conditions', params: {
             "blood_glucose_condition":{
                 "name":"olahraga"
-            }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }}
         it 'created a blood glucose condition' do
             expect(JSON.parse(response.body)['message']).to eq('Data Blood Glucose Condition Added')
@@ -51,7 +57,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
   describe 'PUT /api/blood_glucose_conditions/:id' do
     context 'when the record does not exist' do
         before { 
-            put "/api/blood_glucose_conditions/#{10000000}"
+            put "/api/blood_glucose_conditions/#{10000000}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -90,7 +98,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
   describe 'DELETE /api/blood_glucose_conditions/:id' do
     context 'when the record does not exist' do
         before { 
-            delete "/api/blood_glucose_conditions/#{10000000}"
+            delete "/api/blood_glucose_conditions/#{10000000}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)

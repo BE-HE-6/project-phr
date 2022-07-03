@@ -6,7 +6,9 @@ RSpec.describe "BloodGlucoses", type: :request do
     let(:blood_glucose_id) { blood_glucoses.first.id }
   
     describe "GET /api/blood_glucoses" do
-      before { get '/api/blood_glucoses' }
+      before { get '/api/blood_glucoses', headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
       it 'return blood glucoses' do
           json_result = JSON.parse(response.body)
   
@@ -21,7 +23,9 @@ RSpec.describe "BloodGlucoses", type: :request do
   
     describe 'GET /api/blood_glucoses/:id' do
       before { 
-          get "/api/blood_glucoses/#{blood_glucose_id}"
+          get "/api/blood_glucoses/#{blood_glucose_id}", headers: {
+            Authorization: "Bearer #{authorize}"
+          }
       }
       context 'when the record does not exist' do
         let(:blood_glucose_id) { 100000 }
@@ -51,6 +55,8 @@ RSpec.describe "BloodGlucoses", type: :request do
                   "note":"Test 1",
                   "user_id":1,
                   "blood_glucose_condition_id":Faker::Number.between(from: 1, to: 3)
+              }, headers: {
+                Authorization: "Bearer #{authorize}"
               }
           }
             expect(response).to have_http_status(422)
@@ -101,7 +107,9 @@ RSpec.describe "BloodGlucoses", type: :request do
     describe 'DELETE /api/blood_glucoses/:id' do
       context 'when the record does not exist' do
           before { 
-              delete "/api/blood_glucoses/#{1000000}"
+              delete "/api/blood_glucoses/#{1000000}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
           }
           it 'return status code ' do
               expect(response).to have_http_status(404)

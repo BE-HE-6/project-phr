@@ -1,5 +1,6 @@
 class BloodPressure < ApplicationRecord
     belongs_to :blood_pressure_condition, foreign_key: "blood_pressure_condition_id"
+    belongs_to :user
 
     validates :user_id, presence: true, numericality: true
     validates :blood_pressure_condition_id, presence: true, numericality: true

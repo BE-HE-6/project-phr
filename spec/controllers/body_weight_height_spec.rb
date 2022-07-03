@@ -5,7 +5,9 @@ RSpec.describe "BodyWeightHeightController", type: :request do
   let!(:body_weight_height_id) {body_weight_height.first.id}
 
   describe "GET /api/body_weight_height" do
-    before { get body_weight_height_index_path }
+    before { get body_weight_height_index_path, headers: {
+      Authorization: "Bearer #{authorize}"
+    } }
     it 'return BodyWeightHeight data' do
       expect(JSON.parse(response.body)).not_to be_empty
       expect(JSON.parse(response.body).size).to eq(5)
@@ -17,7 +19,9 @@ RSpec.describe "BodyWeightHeightController", type: :request do
   end
 
   describe "GET /api/body_weight_height/:id" do
-      before { get body_weight_height_path(id: body_weight_height_id) }
+      before { get body_weight_height_path(id: body_weight_height_id), headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
       context 'when the record does not exist' do
         let(:body_weight_height_id) { 100 }
         it 'return HTTP status not_found' do
@@ -49,6 +53,8 @@ RSpec.describe "BodyWeightHeightController", type: :request do
           note: "Thats note",
           bmi_calculation: 24.4,
           date_time: "29-10-2022 14:55:55"
+      }, headers: {
+        Authorization: "Bearer #{authorize}"
       }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
@@ -97,7 +103,9 @@ RSpec.describe "BodyWeightHeightController", type: :request do
 
   describe "DELETE /api/body_weight_height" do
     context 'when the record does not exist' do
-      before { delete body_weight_height_path(id: '100') }
+      before { delete body_weight_height_path(id: '100'), headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
       it 'return HTTP status not_found' do
         expect(response).to have_http_status(:not_found)
         expect(JSON.parse(response.body)['message']).to match("Couldn't find BodyWeightHeight with 'id'=100")

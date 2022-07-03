@@ -6,7 +6,9 @@ RSpec.describe "BloodPressures", type: :request do
   let!(:blood_pressure_id) { blood_pressure.first.id }
 
   describe "CREATE /api/blood_pressure" do
-    before { get blood_pressure_index_path }
+    before { get blood_pressure_index_path, headers: {
+      Authorization: "Bearer #{authorize}"
+    } }
     it 'return blood pressure' do
       expect(JSON.parse(response.body)).not_to be_empty
       expect(JSON.parse(response.body).size).to eq(5)
@@ -17,7 +19,9 @@ RSpec.describe "BloodPressures", type: :request do
   end
 
   describe "GET  /api/blood_pressure/:id" do
-    before { get blood_pressure_path(id: blood_pressure_id)}
+    before { get blood_pressure_path(id: blood_pressure_id), headers: {
+      Authorization: "Bearer #{authorize}"
+    }}
     context "when the record deosn't exist" do
       let(:blood_pressure_id) { 99 }
       it 'return HTTP status not_found'do
@@ -50,6 +54,8 @@ RSpec.describe "BloodPressures", type: :request do
           pulse: 90,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
@@ -144,7 +150,9 @@ RSpec.describe "BloodPressures", type: :request do
 
   describe "DESTROY /api/blood_pressure" do
     context 'when the record does not exist' do
-      before {delete blood_pressure_path(id: 100)}
+      before {delete blood_pressure_path(id: 100), headers: {
+        Authorization: "Bearer #{authorize}"
+      }}
       it 'return HTTP status not_found' do
         expect(response).to have_http_status(:not_found)
         expect(JSON.parse(response.body)['message']).to match("Couldn't find BloodPressure with 'id'=100")

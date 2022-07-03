@@ -5,7 +5,9 @@ RSpec.describe DocumentCategoriesController do
     let(:document_category_id) { document_categories.first.id }
 
     describe 'GET /api/document_categories' do
-        before { get :index }
+        before { get :index, headers: {
+            Authorization: "Bearer #{authorize}"
+          } }
         it 'return document categories' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -20,7 +22,9 @@ RSpec.describe DocumentCategoriesController do
         before { 
             get :show, params: {
                 id: document_category_id
-            }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
     
         context 'when the record does not exist' do
@@ -49,7 +53,9 @@ RSpec.describe DocumentCategoriesController do
         context 'the request is invalid' do
             before { 
                 post :create, 
-                params: { name: nil } 
+                params: { name: nil }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  }
             }
             it 'return status code 422' do
                 expect(response).to have_http_status(422)
@@ -80,7 +86,9 @@ RSpec.describe DocumentCategoriesController do
                 params: { 
                     id: document_category_id,
                     name: 'Medical Billing' 
-                } 
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  } 
             }
             it 'return status code 204' do
                 expect(response).to have_http_status(204)
@@ -92,7 +100,9 @@ RSpec.describe DocumentCategoriesController do
         context 'when the record does not exist' do
             before { 
                 delete :destroy, 
-                params: { id: 1000 }
+                params: { id: 1000 }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  }
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)

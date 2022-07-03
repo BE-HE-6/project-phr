@@ -1,5 +1,6 @@
 class TbBloodOxygen < ApplicationRecord
     belongs_to :tb_blood_oxygen_condition, foreign_key: :blood_oxygen_condition_id
+    belongs_to :user
 
     validates :blood_oxygen, presence: true
     validates :date_time, presence: true

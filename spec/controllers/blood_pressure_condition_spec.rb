@@ -5,7 +5,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
   let!(:blood_pressure_condition_id) { blood_pressure_condition.first.id } 
 
   describe "GET /api/blood_pressure_condition" do
-    before { get blood_pressure_condition_index_path }
+    before { get blood_pressure_condition_index_path, headers: {
+      Authorization: "Bearer #{authorize}"
+    } }
     it 'return all blood pressure condition' do
       expect(JSON.parse(response.body)).not_to be_empty
       expect(JSON.parse(response.body).size).to eq(5)
@@ -17,7 +19,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
   end
 
   describe "GET /api/blood_pressure_condition:id" do
-    before { get blood_pressure_condition_path(id: blood_pressure_condition_id) }
+    before { get blood_pressure_condition_path(id: blood_pressure_condition_id), headers: {
+      Authorization: "Bearer #{authorize}"
+    } }
     context 'when the record does not exist' do
       let(:blood_pressure_condition_id) { 10 }
       it 'return http status not_found' do
@@ -43,7 +47,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
 
   describe "POST /api/blood_pressure_condition" do
     context "the request is invalid" do
-      before { post blood_pressure_condition_index_path, params: {name: nil}}
+      before { post blood_pressure_condition_index_path, params: {name: nil}, headers: {
+        Authorization: "Bearer #{authorize}"
+      }}
       it 'return status code unprocessable entity' do
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -66,7 +72,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
 
   describe "PUT /api/blood_pressure_condition/:id" do
     context "when the record exist" do
-      before { put "/api/blood_pressure_condition/#{blood_pressure_condition_id}", params: { name: 'Stressed' } }
+      before { put "/api/blood_pressure_condition/#{blood_pressure_condition_id}", params: { name: 'Stressed' }, headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
       it 'update the record' do
         expect(response.body).to be_empty
       end
@@ -78,7 +86,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
 
   describe "DELETE /api/blood_pressure_condition/:id" do
     context "when the record doesn't exist" do
-      before { delete "/api/blood_pressure_condition/100"}
+      before { delete "/api/blood_pressure_condition/100", headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
       it 'return http status not_found' do
         expect(response).to have_http_status(:not_found)
         expect(JSON.parse(response.body)['message']).to match("Couldn't find BloodPressureCondition with 'id'=100")

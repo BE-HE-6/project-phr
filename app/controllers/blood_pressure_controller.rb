@@ -1,5 +1,6 @@
 class BloodPressureController < ApplicationController
-
+    before_action :authorize
+    
     def index
         @bp = BloodPressure.all
         jsonResponse(@bp)

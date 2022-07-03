@@ -1,13 +1,13 @@
 class User < ApplicationRecord
   has_secure_password :password
 
-  # has_many :tb_blood_oxygens
-  # has_many :tb_blood_glucoses
-  # has_many :tb_documents
+  has_many :tb_blood_oxygens
+  has_many :tb_blood_glucoses
+  has_many :tb_documents
   # has_many :tb_lab_results
-  # has_many :tb_vaccines
-  # has_many :tb_blood_pressures
-  # has_many :tb_body_weight_heights
+  has_many :tb_vaccines
+  has_many :blood_pressures
+  has_many :body_weight_heights
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create}
   validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[[:^alnum:]])/x, on: :create}

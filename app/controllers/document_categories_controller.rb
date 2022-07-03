@@ -1,4 +1,6 @@
 class DocumentCategoriesController < ApplicationController
+    before_action :authorize
+    
     def index
         @document_categories = TbDocumentCategory.all
         jsonResponse(@document_categories)

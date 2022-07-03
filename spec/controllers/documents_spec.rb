@@ -6,7 +6,9 @@ RSpec.describe DocumentsController do
     let(:document_id) { documents.first.id }
 
     describe "GET /api/documents" do
-        before { get :index }
+        before { get :index, headers: {
+            Authorization: "Bearer #{authorize}"
+          } }
         it 'return documents' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -21,7 +23,9 @@ RSpec.describe DocumentsController do
         before { 
             get :show, params: {
                 id: document_id
-            }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         context 'when the record does not exist' do
             let(:document_id) { 100 }
@@ -52,7 +56,9 @@ RSpec.describe DocumentsController do
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: 1,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
-                }
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc name can't be blank")
             end
@@ -115,7 +121,9 @@ RSpec.describe DocumentsController do
         context 'when the record does not exist' do
             before { 
                 delete :destroy, 
-                params: { id: 1000 }
+                params: { id: 1000 }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  }
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)

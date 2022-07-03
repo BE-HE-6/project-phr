@@ -6,7 +6,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
   let(:blood_oxygen_condition2_name) { blood_oxygen_conditions.second.name }
   
   describe 'GET /api/blood_oxygen_conditions' do
-    before { get '/api/blood_oxygen_conditions' }
+    before { get '/api/blood_oxygen_conditions', headers: {
+        Authorization: "Bearer #{authorize}"
+      } }
     it 'return blood oxygen condition' do
         json_result = JSON.parse(response.body)
         expect(json_result).not_to be_empty
@@ -23,7 +25,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
         before { post  '/api/blood_oxygen_conditions', params:{
             "blood_oxygen_condition":{
                 "name":""
-            }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         } }
         it 'return status code 422' do
             expect(response).to have_http_status(422)
@@ -51,7 +55,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
   describe 'PUT /api/blood_oxygen_conditions/:id' do
     context 'when the record does not exist' do
         before { 
-            put "/api/blood_oxygen_conditions/#{10000000}"
+            put "/api/blood_oxygen_conditions/#{10000000}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -90,7 +96,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
   describe 'DELETE /api/blood_oxygen_conditions/:id' do
     context 'when the record does not exist' do
         before { 
-            delete "/api/blood_oxygen_conditions/#{10000000}"
+            delete "/api/blood_oxygen_conditions/#{10000000}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -99,7 +107,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
     end
     context 'when the record exists' do
         before { 
-            delete "/api/blood_oxygen_conditions/#{blood_oxygen_condition_id}"
+            delete "/api/blood_oxygen_conditions/#{blood_oxygen_condition_id}", headers: {
+                Authorization: "Bearer #{authorize}"
+              }
         }
         it 'return status code 204' do
             expect(response).to have_http_status(204)

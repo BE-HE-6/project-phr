@@ -1,4 +1,6 @@
 class VaccinesController < ApplicationController
+    before_action :authorize
+    
     def index
         @vaccines = TbVaccine.withVaccineCategoryName.all
         jsonResponse(@vaccines)

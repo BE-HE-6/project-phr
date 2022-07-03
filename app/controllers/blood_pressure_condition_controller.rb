@@ -1,4 +1,5 @@
 class BloodPressureConditionController < ApplicationController
+    before_action :authorize
 
     def index
         @bpc = BloodPressureCondition.all

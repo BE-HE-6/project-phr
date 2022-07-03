@@ -6,7 +6,9 @@ RSpec.describe VaccinesController do
     let(:vaccine_id) { vaccines.first.id }
 
     describe "GET /api/vaccines" do
-        before { get :index }
+        before { get :index, headers: {
+            Authorization: "Bearer #{authorize}"
+          } }
         it 'return vaccines' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -22,7 +24,9 @@ RSpec.describe VaccinesController do
             get :show, 
             params: {
                 id: vaccine_id
-            } 
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
+              } 
         }
         context 'when the record does not exist' do
             let(:vaccine_id) { 100 }
@@ -51,7 +55,9 @@ RSpec.describe VaccinesController do
                     location: 'Kota Bekasi',
                     user_id: 1,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
-                }
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Name can't be blank")
             end
@@ -106,7 +112,9 @@ RSpec.describe VaccinesController do
                 delete :destroy,
                 params: { 
                     id: 1000, 
-                } 
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                  } 
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)

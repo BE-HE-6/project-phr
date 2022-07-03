@@ -1,5 +1,6 @@
 class TbDocument < ApplicationRecord    
     belongs_to :tb_document_category, foreign_key: :document_category_id
+    belongs_to :user
 
     mount_uploader :doc_upload, DocUploadUploader
 

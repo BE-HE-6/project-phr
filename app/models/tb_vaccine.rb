@@ -1,5 +1,6 @@
 class TbVaccine < ApplicationRecord
     belongs_to :tb_vaccine_category, foreign_key: :vaccine_category_id
+    belongs_to :user
 
     validates :name, presence: true
     validates :location, presence: true
