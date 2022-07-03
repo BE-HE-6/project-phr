@@ -1,5 +1,6 @@
 class BloodOxygenConditionsController < ApplicationController
   before_action :authorize
+  before_action :checkRoleAdmin
   
   def create
     @blood_oxygen_condition = TbBloodOxygenCondition.create(post_param)

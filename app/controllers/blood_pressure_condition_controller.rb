@@ -1,5 +1,6 @@
 class BloodPressureConditionController < ApplicationController
     before_action :authorize
+    before_action :checkRoleAdmin
 
     def index
         @bpc = BloodPressureCondition.all

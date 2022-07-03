@@ -2,9 +2,10 @@ module TokenHelper
   def authorize
     post '/api/sign_up', params: {
       user: {
-        email: "user@examples.com",
+        email: "admin@examples.com",
         password: "Examples20#",
-        name: "User",
+        name: "admin",
+        role: 'admin',
         birth_place: "Jakarta",
         birth_date: "2022-10-10",
         blood_type: "B",
@@ -14,7 +15,7 @@ module TokenHelper
     }
 
     post '/api/sign_in', params: {
-      email: "user@examples.com",
+      email: "admin@examples.com",
       password: "Examples20#"
     }
     read_token = JSON.parse(response.body)["token"]

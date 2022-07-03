@@ -1,5 +1,6 @@
 class DocumentCategoriesController < ApplicationController
     before_action :authorize
+    before_action :checkRoleAdmin
     
     def index
         @document_categories = TbDocumentCategory.all

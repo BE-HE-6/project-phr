@@ -1,5 +1,6 @@
 class VaccineCategoriesController < ApplicationController
     before_action :authorize
+    before_action :checkRoleAdmin
     
     def index
         @vaccine_categories = TbVaccineCategory.all
