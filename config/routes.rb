@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :blood_pressure_condition, only: [:index, :create, :update, :show, :destroy ]
     resources :vaccine_categories, only: [:create, :index, :update, :destroy, :show]
 		resources :vaccines, only: [:create, :index, :destroy, :show]
+    resources :document_categories, only: [:create, :index, :update, :destroy, :show]
+		resources :documents, only: [:create, :index, :destroy, :show]
   end
-
+  
 end

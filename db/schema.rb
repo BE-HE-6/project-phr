@@ -25,8 +25,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tb_document_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "blood_pressure_conditions", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tb_blood_glucose_conditions", force: :cascade do |t|
@@ -65,6 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.text "note", null: true
     t.float "bmi_calculation"
     t.datetime "date_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tb_blood_oxygen_conditions", force: :cascade do |t|
@@ -80,6 +90,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.datetime "date_time", null: false
     t.integer "user_id", null: false
     t.integer "blood_oxygen_condition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tb_vaccine_categories", force: :cascade do |t|
@@ -94,6 +106,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.integer "vaccine_category_id", null: false
     t.string "name", null: false
     t.string "location", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_documents", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "doc_upload"
+    t.integer "user_id"
+    t.integer "document_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

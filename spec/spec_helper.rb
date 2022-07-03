@@ -91,4 +91,28 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  # RSpec.configure do |config|
+    config.after(:each) do
+      if Rails.env.test? || Rails.env.cucumber?
+        FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+      end 
+    end
+    config.before(:each) do
+      if Rails.env.test? || Rails.env.cucumber?
+          DocUploadUploader
+          CarrierWave::Uploader::Base.descendants.each do |klass|
+            next if klass.anonymous?
+            klass.class_eval do
+                def cache_dir
+                    "#{Rails.root}/spec/support/uploads/tmp"
+                end
+        
+                def store_dir
+                    "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+                end
+            end
+        end
+      end 
+    end
+  # end
 end

@@ -56,6 +56,8 @@ gem 'active_model_serializers', '~> 0.10.13'
 # Pagination rails
 gem 'will_paginate', '~> 3.3'
 
+gem 'carrierwave', '~> 1.0'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
