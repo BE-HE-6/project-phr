@@ -73,7 +73,7 @@ rspec -fd
 
 #### [User Login](./docs/FT-2/Login.md)
 
-#### [User Profile](./docs/FT-3)
+#### [User Profile](./docs/FT-3/Profile.md)
 
 #### [Body Weight Height](./docs/FT-4/BodyWeightHeight.md)
 
