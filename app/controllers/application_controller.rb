@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Response
+  include ExceptionHandler
+  
   protect_from_forgery with: :null_session
 
   def encode_token(payload)
@@ -29,4 +32,5 @@ class ApplicationController < ActionController::Base
   def authorize
     render json: { message: 'You have to log in' }, status: :unauthorized unless authorized_user
   end
+
 end

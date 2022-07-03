@@ -24,5 +24,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+  create_table "body_weight_heights", force: :cascade do |t|
+    t.integer "user_id"
+    t.float "weight"
+    t.float "height"
+    t.text "note", null: true
+    t.float "bmi_calculation"
+    t.datetime "date_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     get "profiles/:id", to: "profiles#show", as: "profile_id"
     put "profiles/:id", to: "profiles#update", as: "profile_update"
   end
+  
+  scope '/api' do
+    resources :body_weight_height, only: [:index, :show, :create, :destroy]
+  end
 end

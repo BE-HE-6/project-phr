@@ -47,6 +47,11 @@ gem "bootsnap", require: false
 
 # Use JSON Web Token (JWT)
 gem "jwt"
+# Active model serializer
+gem 'active_model_serializers', '~> 0.10.13'
+
+# Pagination rails
+gem 'will_paginate', '~> 3.3'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
