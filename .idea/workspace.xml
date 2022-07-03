@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fd7cbbe-da0b-40db-b399-182a5548e6ec" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/FT-1/Registration.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/31304b48-6820-486a-8ef7-e62c3655176a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/31304b48-6820-486a-8ef7-e62c3655176a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/support/token_helper.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/factories/users.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/factories/users.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/helpers/api/profiles_helper_spec.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/helpers/api/registrations_helper_spec.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/helpers/api/users_helper_spec.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/rails_helper.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/rails_helper.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/requests/api/profiles_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/controller/api/profiles_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/requests/api/registrations_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/controller/api/registrations_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/requests/api/users_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/controller/api/users_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +181,8 @@
       <workItem from="1656610848620" duration="19000" />
       <workItem from="1656611771964" duration="90000" />
       <workItem from="1656743777550" duration="7554000" />
-      <workItem from="1656757066805" duration="306000" />
+      <workItem from="1656757066805" duration="683000" />
+      <workItem from="1656822305756" duration="8910000" />
     </task>
     <servers />
   </component>

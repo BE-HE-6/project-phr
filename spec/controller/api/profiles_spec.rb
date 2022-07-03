@@ -1,18 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Profiles", type: :request do
-  let(:profile_id) { profile.first.id }
-  let(:user) {
-    FactoryBot.create(
-      email: "user@examples.com",
-      password: "Examples20#",
-      name: "User99",
-      birth_place: "DKI Jakarta",
-      birth_date: "2022-12-12",
-      blood_type: "A",
-      bpjs_id: "00127295921",
-      ktp_id: "3673033607930003")
-  }
+  let!(:users) {create_list(:user, 5)}
+  let!(:profile_id) { users.first.id }
 
   describe "GET /api/profiles/:id" do
     before { get "/api/profiles/#{profile_id}" }
@@ -30,10 +20,12 @@ RSpec.describe "Api::Profiles", type: :request do
 
     context "when the record exist status code 200" do
       it "return the profile" do
+        authorize! 'valid token'
         expect(JSON.parse(response.body)).not_to be_empty
       end
 
       it "return status code 200" do
+        authorize! 'valid token'
         expect(response).to have_http_status(200)
       end
     end
@@ -43,8 +35,8 @@ RSpec.describe "Api::Profiles", type: :request do
     context "when the record exists" do
       before { put "/api/profiles/#{profile_id}", params: {
         profile: {
-          email: profile.email,
-          password: profile.password,
+          email: "user20@gmail.com",
+          password: "Examples20#",
           name: "User20",
           birth_place: "DKI Jakarta",
           birth_date: "2022-10-10",
@@ -53,10 +45,14 @@ RSpec.describe "Api::Profiles", type: :request do
           ktp_id: "3673033607930003" }
        }
       }
+
       it "record has been updated successfully." do
+        authorize! 'valid token'
         expect(response.body).to be_empty
       end
+
       it "return status code 204" do
+        authorize 'valid token'
         expect(response).to have_http_status(204)
       end
     end
