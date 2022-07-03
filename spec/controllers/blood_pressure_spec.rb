@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "BloodPressures", type: :request do
+  let!(:users) {create_list(:user, 5)}
   let!(:blood_pressure_condition) { FactoryBot.create_list(:blood_pressure_condition, 5) }
   let!(:blood_pressure) { FactoryBot.create_list(:blood_pressure, 5)}
   let!(:blood_pressure_id) { blood_pressure.first.id }
@@ -58,18 +59,20 @@ RSpec.describe "BloodPressures", type: :request do
           Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
+        expect(JSON.parse(response.body)['message']).to match("Validation failed: User must exist, User can't be blank, User is not a number")
       end
 
       it "blood_pressure_condition can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: 1,
+          user_id: users.first.id,
           blood_pressure_condition_id: nil,
           sistole: 120,
           diastole: 80,
           pulse: 90,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Blood pressure condition must exist, Blood pressure condition can't be blank, Blood pressure condition is not a number")
@@ -77,13 +80,15 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "sistole can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: 1,
+          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: nil,
           diastole: 80,
           pulse: 90,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Sistole can't be blank")
@@ -91,13 +96,15 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "diastole can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: 1,
+          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: nil,
           pulse: 90,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Diastole can't be blank")
@@ -105,13 +112,15 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "pulse can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: 1,
+          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: 80,
           pulse: nil,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Pulse can't be blank")
@@ -119,13 +128,15 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "date_time can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: 1,
+          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: 80,
           pulse: 90,
           note: 'Thats my note',
           date_time: nil
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['message']).to match("Validation failed: Date time can't be blank")
@@ -142,6 +153,8 @@ RSpec.describe "BloodPressures", type: :request do
           pulse: 90,
           note: 'Thats my note',
           date_time: '14-04-2022 14:55:23'
+        }, headers: {
+          Authorization: "Bearer #{authorize}"
         }
         expect(response).to have_http_status(:created) 
       end
@@ -160,7 +173,9 @@ RSpec.describe "BloodPressures", type: :request do
     end
 
     context 'when the record does exist' do
-      before {delete blood_pressure_path(id: blood_pressure_id)}
+      before {delete blood_pressure_path(id: blood_pressure_id), headers: {
+        Authorization: "Bearer #{authorize}"
+      }}
       it 'return HTTP status no_content' do
         expect(response).to have_http_status(:no_content)
       end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TbBloodOxygen, type: :model do
+  let!(:users) {create_list(:user, 5)}
   describe 'INSERT data blood oxygen' do
     it 'is invalid insert without a nil data' do
 			bloodOxygen = TbBloodOxygen.create(
@@ -24,7 +25,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       bloodOxygen = TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: 2
 			)
       bloodOxygen.valid?
@@ -39,7 +40,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       bloodOxygen = TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: bloodOxygenConditon.id
 			)
       expect(bloodOxygenConditon).to be_valid
@@ -65,7 +66,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       bloodOxygen = TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: bloodOxygenConditon.id
 			)
 
@@ -85,7 +86,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       bloodOxygen = TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: bloodOxygenConditon.id
 			)
 
@@ -110,7 +111,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       bloodOxygen = TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: bloodOxygenConditon.id
 			)
       bloodOxygen.destroy
@@ -131,7 +132,7 @@ RSpec.describe TbBloodOxygen, type: :model do
       TbBloodOxygen.create(
         blood_oxygen: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_oxygen_condition_id: bloodOxygenConditon.id
 			)
       bloodOxygen = TbBloodOxygen.find(1)

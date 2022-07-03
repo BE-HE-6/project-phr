@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TbDocument, type: :model do
-	describe '-- CREATE Document' do
+  let!(:users) {create_list(:user, 5)}
+  describe '-- CREATE Document' do
 		it 'is invalid create with nil data' do
 			document = TbDocument.create(
 				doc_name: nil,
@@ -26,7 +27,7 @@ RSpec.describe TbDocument, type: :model do
 			document = TbDocument.create(
 				doc_name: 'Diagnosa Penyakit COVID-19',
                 doc_upload: 'file.jpg',
-                user_id: 1,
+                user_id: users.first.id,
                 document_category_id: 2
 			)
 			expect(document.errors[:tb_document_category]).to include("must exist")
@@ -39,7 +40,7 @@ RSpec.describe TbDocument, type: :model do
 			document = TbDocument.create(
 				doc_name: 'Diagnosa Penyakit COVID-19',
                 doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                user_id: 1,
+                user_id: users.first.id,
                 document_category_id: documentCategory.id
 			)
 			expect(documentCategory).to be_valid
@@ -51,24 +52,6 @@ RSpec.describe TbDocument, type: :model do
         it 'is invalid delete without valid id' do
             expect { TbDocument.destroy(1) }.to raise_error(ActiveRecord::RecordNotFound)
         end
-        
-        # it 'is valid delete document' do
-		# 	documentCategory = TbDocumentCategory.create(
-		# 		name: 'Diagnose'
-		# 	)
-		# 	document = TbDocument.create(
-		# 		doc_name: 'Diagnosa Penyakit COVID-19',
-        #         doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-        #         user_id: 1,
-        #         document_category_id: documentCategory.id
-		# 	)
-        #     # puts document.id
-        #     # documentDeleted = TbDocument.destroy(document.id)
-        #     # puts documentDeleted.inspect
-        #     # puts TbDocument.all.inspect
-        #     # puts TbDocument.find(document.id).inspect
-        #     # expect(TbDocument.destroy(document.id)).to be_valid
-        # end
     end
 
     describe '-- GET Document' do
@@ -83,7 +66,7 @@ RSpec.describe TbDocument, type: :model do
 			TbDocument.create(
 				doc_name: 'Diagnosa Penyakit COVID-19',
                 doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                user_id: 1,
+                user_id: users.first.id,
                 document_category_id: documentCategory.id
 			)
             document = TbDocument.find(1)

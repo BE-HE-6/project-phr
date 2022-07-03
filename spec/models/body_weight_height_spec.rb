@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BodyWeightHeight, type: :model do
+  let!(:users) {create_list(:user, 5)}
 
   describe 'CREATE BodyWeightHeight' do
     it 'is valid with user_id, weight, height, note,bmi_calculation, and date_time' do

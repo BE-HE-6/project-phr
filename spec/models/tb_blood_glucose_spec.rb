@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TbBloodGlucose, type: :model do
+  let!(:users) {create_list(:user, 5)}
   describe 'INSERT data blood glucose' do
     it 'is invalid insert without a nil data' do
 			bloodGlucose = TbBloodGlucose.create(
@@ -24,7 +25,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       bloodGlucose = TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: 2
 			)
       bloodGlucose.valid?
@@ -39,7 +40,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       bloodGlucose = TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: bloodGlucoseCondition.id
 			)
       expect(bloodGlucoseCondition).to be_valid
@@ -65,7 +66,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       bloodGlucose = TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: bloodGlucoseCondition.id
 			)
 
@@ -85,7 +86,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       bloodGlucose = TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: bloodGlucoseCondition.id
 			)
 
@@ -110,7 +111,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       bloodGlucose = TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: bloodGlucoseCondition.id
 			)
       bloodGlucose.destroy
@@ -131,7 +132,7 @@ RSpec.describe TbBloodGlucose, type: :model do
       TbBloodGlucose.create(
         blood_glucose: 98,
         date_time: Time.now,
-        user_id: 1,
+        user_id: users.first.id,
         blood_glucose_condition_id: bloodGlucoseCondition.id
 			)
       bloodGlucose = TbBloodGlucose.find(1)

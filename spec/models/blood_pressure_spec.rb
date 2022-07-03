@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe BloodPressure, type: :model do
-
+  let!(:users) {create_list(:user, 5)}
   it { should belong_to(:blood_pressure_condition)}
 
   describe 'CREATE a Blood Pressure' do
     it 'is valid with a user_id, sistole, diastole, pulse, blood_pressure_condition and datetime' do
       blood_pressure_condition = FactoryBot.create(:blood_pressure_condition)
       blood_pressure = BloodPressure.create(
-        user_id: 1,
+        user_id: users.first.id,
         blood_pressure_condition_id: blood_pressure_condition.id,
         sistole: 120,
         diastole: 80,
@@ -47,7 +47,7 @@ RSpec.describe BloodPressure, type: :model do
     it 'is invalid without a valid blood_pressure_condition id' do
       blood_pressure_condition = FactoryBot.create(:blood_pressure_condition)
       blood_pressure = BloodPressure.create(
-        user_id: 1,
+        user_id: users.first.id,
         blood_pressure_condition_id: 2,
         sistole: 120,
         diastole: 80,
@@ -62,7 +62,7 @@ RSpec.describe BloodPressure, type: :model do
     it 'is invalid with sistole, diastole, and pulse not a number' do
       blood_pressure_condition = FactoryBot.create(:blood_pressure_condition)
       blood_pressure = BloodPressure.create(
-        user_id: 1,
+        user_id: users.first.id,
         blood_pressure_condition_id: blood_pressure_condition.id,
         note: 'Thats a note',
         sistole: 'Delapan Puluh Lima',

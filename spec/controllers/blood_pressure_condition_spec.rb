@@ -60,7 +60,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
     end
 
     context "the request is valid" do
-      before { post blood_pressure_condition_index_path, params: { name: 'Wake Up' }}
+      before { post blood_pressure_condition_index_path, params: { name: 'Wake Up' }, headers: {
+        Authorization: "Bearer #{authorize}"
+      }}
       it 'created a blood pressure condition' do
         expect(JSON.parse(response.body)['name']).to eq('Wake Up')
       end
@@ -96,7 +98,9 @@ RSpec.describe "BloodPressureConditions", type: :request do
     end
 
     context "when the record does exist" do
-      before {delete "/api/blood_pressure_condition/#{blood_pressure_condition_id}"}
+      before {delete "/api/blood_pressure_condition/#{blood_pressure_condition_id}", headers: {
+        Authorization: "Bearer #{authorize}"
+      }}
       it 'return status code not_found' do
         expect(response).to have_http_status(:no_content)
       end

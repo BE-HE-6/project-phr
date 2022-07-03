@@ -1,14 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe VaccinesController do
-	let!(:vaccine_categories) { create_list(:TbVaccineCategory, 5) }
+RSpec.describe "VaccinesController", type: :request do
+    let!(:users) {create_list(:user, 5)}
+    let!(:vaccine_categories) { create_list(:TbVaccineCategory, 5) }
     let!(:vaccines) { create_list(:TbVaccine, 5) }
     let(:vaccine_id) { vaccines.first.id }
 
     describe "GET /api/vaccines" do
-        before { get :index, headers: {
-            Authorization: "Bearer #{authorize}"
-          } }
+        before { 
+            get "/api/vaccines", headers: {
+                Authorization: "Bearer #{authorize}"
+            } 
+        }
         it 'return vaccines' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -21,12 +24,10 @@ RSpec.describe VaccinesController do
 
     describe 'GET /api/vaccines/:id' do
         before { 
-            get :show, 
-            params: {
-                id: vaccine_id
-            }, headers: {
+            get "/api/vaccines/#{vaccine_id}", 
+            headers: {
                 Authorization: "Bearer #{authorize}"
-              } 
+            } 
         }
         context 'when the record does not exist' do
             let(:vaccine_id) { 100 }
@@ -50,43 +51,49 @@ RSpec.describe VaccinesController do
     describe 'POST /api/vaccines' do
         context 'the request is invalid' do
             it "name can't be blank" do
-                post :create, params: { 
+                post "/api/vaccines/", params: { 
                     name: nil,
                     location: 'Kota Bekasi',
-                    user_id: 1,
+                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
-                  }
+                }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Name can't be blank")
             end
             it "location can't be blank" do
-                post :create, params: { 
+                post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: nil,
-                    user_id: 1,
+                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Location can't be blank")
             end
             it "user id can't be blank" do
-                post :create, params: { 
+                post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: 'Kota Bekasi',
                     user_id: nil,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
-                expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: User must exist, User can't be blank, User is not a number")
             end
             it "vaccine category id can't be blank" do
-                post :create, params: { 
+                post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: 'Kota Bekasi',
-                    user_id: 1,
+                    user_id: users.first.id,
                     vaccine_category_id: nil
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb vaccine category must exist, Vaccine category can't be blank, Vaccine category is not a number")
@@ -95,12 +102,14 @@ RSpec.describe VaccinesController do
 
         context 'the request is valid' do
             it 'created a vaccine' do
-                post :create, params: {  
+                post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: 'Kota Bekasi',
-                    user_id: 1,
+                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
-                } 
+                }, headers: {
+                    Authorization: "Bearer #{authorize}"
+                }
                 expect(response).to have_http_status(201)
             end
         end
@@ -109,12 +118,10 @@ RSpec.describe VaccinesController do
     describe 'DELETE /api/vaccines/:id' do
         context 'when the record does not exist' do
             before { 
-                delete :destroy,
-                params: { 
-                    id: 1000, 
-                }, headers: {
+                delete "/api/vaccines/1000", 
+                headers: {
                     Authorization: "Bearer #{authorize}"
-                  } 
+                } 
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)
@@ -123,9 +130,9 @@ RSpec.describe VaccinesController do
         end
         context 'when the record exists' do
             before { 
-                delete :destroy,
-                params: { 
-                    id: vaccine_id, 
+                delete "/api/vaccines/#{vaccine_id}", 
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 } 
             }
             it 'return status code 204' do

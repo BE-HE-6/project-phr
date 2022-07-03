@@ -22,13 +22,16 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
 
   describe 'POST /api/blood_glucose_conditions' do
     context 'the request is invalid' do
-        before { post  '/api/blood_glucose_conditions', params:{
-            "blood_glucose_condition":{
-                "name":""
-            }, headers: {
+        before { post  '/api/blood_glucose_conditions', 
+            params: {
+                blood_glucose_condition: {
+                    name: ""
+                } 
+            },
+            headers: {
                 Authorization: "Bearer #{authorize}"
-              }
-        } }
+            }
+        } 
         it 'return status code 422' do
             expect(response).to have_http_status(422)
         end
@@ -38,13 +41,16 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
     end
 
     context 'the request is valid' do
-        before { post  '/api/blood_glucose_conditions', params: {
-            "blood_glucose_condition":{
-                "name":"olahraga"
+        before { 
+            post  '/api/blood_glucose_conditions', 
+            params: {
+                "blood_glucose_condition":{
+                    "name":"olahraga"
+                }
             }, headers: {
                 Authorization: "Bearer #{authorize}"
-              }
-        }}
+            }
+        }
         it 'created a blood glucose condition' do
             expect(JSON.parse(response.body)['message']).to eq('Data Blood Glucose Condition Added')
         end
@@ -52,14 +58,14 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
             expect(response).to have_http_status(201)
         end
     end
-  end
+end
 
   describe 'PUT /api/blood_glucose_conditions/:id' do
     context 'when the record does not exist' do
         before { 
             put "/api/blood_glucose_conditions/#{10000000}", headers: {
                 Authorization: "Bearer #{authorize}"
-              }
+            }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -73,6 +79,8 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
                 "blood_glucose_condition":{
                     "name":blood_glucose_condition2_name
                 }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
             }
         }
         it 'updated the record & return status code 422' do
@@ -87,6 +95,8 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
                 "blood_glucose_condition":{
                     "name":"olahraga"
                 }
+            }, headers: {
+                Authorization: "Bearer #{authorize}"
             }
         }
         it 'updated the record & return status code 204' do
@@ -100,7 +110,7 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
         before { 
             delete "/api/blood_glucose_conditions/#{10000000}", headers: {
                 Authorization: "Bearer #{authorize}"
-              }
+            }
         }
         it 'return status code ' do
             expect(response).to have_http_status(404)
@@ -109,7 +119,9 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
     end
     context 'when the record exists' do
         before { 
-            delete "/api/blood_glucose_conditions/#{blood_glucose_condition_id}"
+            delete "/api/blood_glucose_conditions/#{blood_glucose_condition_id}", headers: {
+                Authorization: "Bearer #{authorize}"
+            }
         }
         it 'return status code 204' do
             expect(response).to have_http_status(204)

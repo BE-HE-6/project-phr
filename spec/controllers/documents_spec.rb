@@ -1,14 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe DocumentsController do
+RSpec.describe "DocumentsController", type: :request do
+    let!(:users) {create_list(:user, 5)}
 	let!(:document_categories) { create_list(:TbDocumentCategory, 5) }
     let!(:documents) { create_list(:TbDocument, 5) }
     let(:document_id) { documents.first.id }
 
     describe "GET /api/documents" do
-        before { get :index, headers: {
-            Authorization: "Bearer #{authorize}"
-          } }
+        before { 
+            get "/api/documents", 
+            headers: {
+                Authorization: "Bearer #{authorize}"
+            } 
+        }
         it 'return documents' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -21,11 +25,10 @@ RSpec.describe DocumentsController do
 
     describe 'GET /api/documents/:id' do
         before { 
-            get :show, params: {
-                id: document_id
-            }, headers: {
+            get "/api/documents/#{document_id}", 
+            headers: {
                 Authorization: "Bearer #{authorize}"
-              }
+            }
         }
         context 'when the record does not exist' do
             let(:document_id) { 100 }
@@ -51,53 +54,65 @@ RSpec.describe DocumentsController do
     describe 'POST /api/documents' do
         context 'the request is invalid' do
             it "name can't be blank" do
-                post :create, params: { 
+                post "/api/documents/", params: { 
                     doc_name: "",
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: 1,
+                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
-                  }
+                }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc name can't be blank")
             end
             it "Document Upload can't be blank" do
-                post :create, params: { 
+                post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: "",
-                    user_id: 1,
+                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
+                },
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc upload can't be blank")
             end
             it "user id can't be blank" do
-                post :create, params: { 
+                post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
                     user_id: nil,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
+                },
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
-                expect(JSON.parse(response.body)['message']).to match("Validation failed: User can't be blank, User is not a number")
+                expect(JSON.parse(response.body)['message']).to match("Validation failed: User must exist, User can't be blank, User is not a number")
             end
             it "document category id can't be blank" do
-                post :create, params: { 
+                post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: 1,
+                    user_id: users.first.id,
                     document_category_id: nil
+                },
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb document category must exist, Document category can't be blank, Document category is not a number")
             end
             it "document category must exist" do
-                post :create, params: { 
+                post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: 1,
+                    user_id: users.first.id,
                     document_category_id: 1000
+                },
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 }
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Tb document category must exist")
@@ -106,12 +121,15 @@ RSpec.describe DocumentsController do
 
         context 'the request is valid' do
             it 'created a document' do
-                post :create, params: {  
+                post "/api/documents/", params: {  
                     doc_name: 'Sertifikat Vaksin COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: 1,
+                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
-                } 
+                } ,
+                headers: {
+                    Authorization: "Bearer #{authorize}"
+                }
                 expect(response).to have_http_status(201)
             end
         end
@@ -120,10 +138,10 @@ RSpec.describe DocumentsController do
     describe 'DELETE /api/documents/:id' do
         context 'when the record does not exist' do
             before { 
-                delete :destroy, 
-                params: { id: 1000 }, headers: {
+                delete "/api/documents/1000", 
+                headers: {
                     Authorization: "Bearer #{authorize}"
-                  }
+                }
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)
@@ -132,8 +150,10 @@ RSpec.describe DocumentsController do
         end
         context 'when the record exists' do
             before { 
-                delete :destroy, 
-                params: { id: document_id }
+                delete "/api/documents/#{document_id}", 
+                headers: {
+                    Authorization: "Bearer #{authorize}"
+                }
             }
             it 'return status code 204' do
                 expect(response).to have_http_status(204)

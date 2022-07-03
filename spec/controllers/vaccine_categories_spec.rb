@@ -1,13 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe VaccineCategoriesController do
+RSpec.describe "VaccineCategoriesController", type: :request do
 	let!(:vaccine_categories) { create_list(:TbVaccineCategory, 5) }
     let(:vaccine_category_id) { vaccine_categories.first.id }
 
     describe 'GET /api/vaccine_categories' do
-        before { get :index, headers: {
-            Authorization: "Bearer #{authorize}"
-          } }
+        before { 
+            get "/api/vaccine_categories", headers: {
+                Authorization: "Bearer #{authorize}"
+            } 
+        }
         it 'return vaccine categories' do
             expect(JSON.parse(response.body)).not_to be_empty
             expect(JSON.parse(response.body).size).to eq(5)
@@ -20,12 +22,10 @@ RSpec.describe VaccineCategoriesController do
 
     describe 'GET /api/vaccine_categories/:id' do
         before { 
-            get :show, 
-            params: {
-                id: vaccine_category_id
-            }, headers: {
+            get "/api/vaccine_categories/#{vaccine_category_id}", 
+            headers: {
                 Authorization: "Bearer #{authorize}"
-              } 
+            } 
         }
     
         context 'when the record does not exist' do
@@ -52,9 +52,13 @@ RSpec.describe VaccineCategoriesController do
 
     describe 'POST /api/vaccine_categories' do
         context 'the request is invalid' do
-            before { post :create, params: { name: nil }, headers: {
-                Authorization: "Bearer #{authorize}"
-              } }
+            before { 
+                post "/api/vaccine_categories", 
+                params: { name: nil }, 
+                headers: {
+                    Authorization: "Bearer #{authorize}"
+                } 
+            }
             it 'return status code 422' do
                 expect(response).to have_http_status(422)
             end
@@ -64,7 +68,13 @@ RSpec.describe VaccineCategoriesController do
         end
 
         context 'the request is valid' do
-            before { post :create, params: { name: 'Inactivated vaccines' } }
+            before { 
+                post "/api/vaccine_categories", 
+                params: { name: 'Inactivated vaccines' }, 
+                headers: {
+                    Authorization: "Bearer #{authorize}"
+                } 
+            }
             it 'created a vaccine category' do
                 expect(JSON.parse(response.body)['name']).to eq('Inactivated vaccines')
             end
@@ -77,13 +87,12 @@ RSpec.describe VaccineCategoriesController do
 	describe 'PUT /api/vaccine_categories/:id' do
         context 'when the record exists' do
             before { 
-                put :update, 
+                put "/api/vaccine_categories/#{vaccine_category_id}", 
                 params: { 
-                    id: vaccine_category_id, 
                     name: 'Toxoid vaccines' 
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
-                  } 
+                } 
             }
             it 'updated the record & return status code 204' do
                 expect(response).to have_http_status(204)
@@ -94,12 +103,10 @@ RSpec.describe VaccineCategoriesController do
     describe 'DELETE /api/vaccine_categories/:id' do
         context 'when the record does not exist' do
             before { 
-                delete :destroy,
-                params: { 
-                    id: 1000, 
-                }, headers: {
+                delete "/api/vaccine_categories/1000", 
+                headers: {
                     Authorization: "Bearer #{authorize}"
-                  } 
+                } 
             }
             it 'return status code ' do
                 expect(response).to have_http_status(404)
@@ -108,9 +115,9 @@ RSpec.describe VaccineCategoriesController do
         end
         context 'when the record exists' do
             before { 
-                delete :destroy,
-                params: { 
-                    id: vaccine_category_id, 
+                delete "/api/vaccine_categories/#{vaccine_category_id}", 
+                headers: {
+                    Authorization: "Bearer #{authorize}"
                 } 
             }
             it 'return status code 204' do

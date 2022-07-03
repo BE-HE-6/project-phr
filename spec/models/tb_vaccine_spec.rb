@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TbVaccine, type: :model do
+	let!(:users) {create_list(:user, 5)}
+
 	describe '-- CREATE Vaccine' do
 		it 'is invalid create with nil data' do
 			vaccine = TbVaccine.create(
@@ -26,7 +28,7 @@ RSpec.describe TbVaccine, type: :model do
 			vaccine = TbVaccine.create(
 				name: 'Vaksin COVID-19',
                 location: 'POLRES Kota Bekasi',
-                user_id: 1,
+                user_id: users.first.id,
                 vaccine_category_id: 2
 			)
 			expect(vaccine.errors[:tb_vaccine_category]).to include("must exist")
@@ -39,7 +41,7 @@ RSpec.describe TbVaccine, type: :model do
 			vaccine = TbVaccine.create(
 				name: 'Vaksin COVID-19',
                 location: 'POLRES Kota Bekasi',
-                user_id: 1,
+                user_id: users.first.id,
                 vaccine_category_id: vaccineCategory.id
 			)
 			expect(vaccineCategory).to be_valid
@@ -59,7 +61,7 @@ RSpec.describe TbVaccine, type: :model do
 			vaccine = TbVaccine.create(
 				name: 'Vaksin COVID-19',
                 location: 'POLRES Kota Bekasi',
-                user_id: 1,
+                user_id: users.first.id,
                 vaccine_category_id: vaccineCategory.id
 			)
             vaccine.destroy
@@ -79,7 +81,7 @@ RSpec.describe TbVaccine, type: :model do
 			TbVaccine.create(
 				name: 'Vaksin COVID-19',
                 location: 'POLRES Kota Bekasi',
-                user_id: 1,
+                user_id: users.first.id,
                 vaccine_category_id: vaccineCategory.id
 			)
             vaccine = TbVaccine.find(1)

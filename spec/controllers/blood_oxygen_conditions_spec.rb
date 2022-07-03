@@ -22,13 +22,17 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
 
   describe 'POST /api/blood_oxygen_conditions' do
     context 'the request is invalid' do
-        before { post  '/api/blood_oxygen_conditions', params:{
-            "blood_oxygen_condition":{
-                "name":""
-            }, headers: {
+        before { 
+            post  '/api/blood_oxygen_conditions', 
+            params:{
+                "blood_oxygen_condition":{
+                    "name":""
+                }
+            },
+            headers: {
                 Authorization: "Bearer #{authorize}"
-              }
-        } }
+            }
+        }
         it 'return status code 422' do
             expect(response).to have_http_status(422)
         end
@@ -39,10 +43,14 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
 
     context 'the request is valid' do
         before { post  '/api/blood_oxygen_conditions', params: {
-            "blood_oxygen_condition":{
-                "name":"olahraga"
+                "blood_oxygen_condition":{
+                    "name":"olahraga"
+                }
+            },
+            headers: {
+                Authorization: "Bearer #{authorize}"
             }
-        }}
+        }
         it 'created a blood oxygen condition' do
             expect(JSON.parse(response.body)['message']).to eq('Data Blood Oxygen Condition Added')
         end
@@ -71,6 +79,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 "blood_oxygen_condition":{
                     "name":blood_oxygen_condition2_name
                 }
+            },
+            headers: {
+                Authorization: "Bearer #{authorize}"
             }
         }
         it 'updated the record & return status code 422' do
@@ -85,6 +96,9 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 "blood_oxygen_condition":{
                     "name":"olahraga"
                 }
+            },
+            headers: {
+                Authorization: "Bearer #{authorize}"
             }
         }
         it 'updated the record & return status code 204' do
