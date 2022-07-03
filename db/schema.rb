@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
   create_table "users", force: :cascade do |t|
     t.integer "role", default: 0
@@ -24,6 +25,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "blood_pressure_conditions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blood_pressures", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "blood_pressure_condition_id"
+    t.integer "sistole"
+    t.integer "diastole"
+    t.integer "pulse"
+    t.text "note"
+    t.datetime "date_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "body_weight_heights", force: :cascade do |t|
     t.integer "user_id"
     t.float "weight"
