@@ -69,13 +69,17 @@ rspec -fd
 
 ## API Documentation
 
+#### [User Registration](./docs/FT-1/Registration.md)
+
+#### [User Login](./docs/FT-2/Login.md)
+
+#### [User Profile](./docs/FT-3/Profile.md)
+
+#### [Body Weight Height](./docs/FT-4/BodyWeightHeight.md)
+
 #### [Blood Pressure Condition](./docs/FT-5/BloodPressureCondition.md)
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e)
-
 #### [Blood Pressure](./docs/FT-5/BloodPressureCondition.md)
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJETz9e)
 
 #### [Blood Oxygen Condition](./docs/FT-6/BloodOxygenCondition.md)
 
@@ -84,3 +88,11 @@ rspec -fd
 #### [Blood Glucose Condition](./docs/FT-7/BloodGlucoseCondition.md)
 
 #### [Blood Glucose](./docs/FT-7/BloodGlucose.md)
+
+#### [Vaccine Categories](./docs/FT-8/tb_vaccine_categories.md)
+
+#### [Vaccines](./docs/FT-8/tb_vaccines.md)
+
+#### [Document Categories](./docs/FT-9/tb_document_categories.md)
+
+#### [Documents](./docs/FT-9/tb_documents.md)

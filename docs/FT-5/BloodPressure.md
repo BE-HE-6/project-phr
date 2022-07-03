@@ -39,3 +39,5 @@
 | Parameter | Type      | Description  |
 | :-------- | :-------- | :----------- |
 | `id`      | `integer` | **Required** |
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJFudWs)
