@@ -11,6 +11,55 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_06_27_114641) do
+  create_table "_tb_documents_old_20220626", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "doc_upload"
+    t.integer "user_id"
+    t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "_tb_documents_old_20220626_1", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "image"
+    t.integer "user_id"
+    t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_document_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_documents", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "doc_upload"
+    t.integer "user_id"
+    t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_vaccine_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tb_vaccine_categories_on_name", unique: true
+  end
+
+  create_table "tb_vaccines", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "vaccine_category_id", null: false
+    t.string "name", null: false
+    t.string "location", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.integer "role", default: 0
     t.string "email"

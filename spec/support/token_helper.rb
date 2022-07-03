@@ -1,11 +1,23 @@
 module TokenHelper
-  def authorize!
-    post '/api/sign_in', params: {
-      email: "user100@gmail.com",
-      password: "Examples1000#"
+  def authorize
+    post '/api/sign_up', params: {
+      user: {
+        email: "user@examples.com",
+        password: "Examples20#",
+        name: "User",
+        birth_place: "Jakarta",
+        birth_date: "2022-10-10",
+        blood_type: "B",
+        bpjs_id: "00127295921",
+        ktp_id: "3673033607930003"
+      }
     }
-    put read_token = JSON.parse(response.body)["token"]
-    request.headers['Authorization'] = "Bearer #{read_token}"
+
+    post '/api/sign_in', params: {
+      email: "user@examples.com",
+      password: "Examples20#"
+    }
+    read_token = JSON.parse(response.body)["token"]
   end
 end
 
