@@ -281,10 +281,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
-<<<<<<< HEAD
-=======
   ffi
->>>>>>> FT-6
   importmap-rails
   jbuilder
   jwt

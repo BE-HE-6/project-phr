@@ -45,6 +45,7 @@ gem "tzinfo-data"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+<<<<<<< HEAD
 # Use JSON Web Token (JWT)
 gem "jwt"
 # Active model serializer
@@ -52,6 +53,9 @@ gem 'active_model_serializers', '~> 0.10.13'
 
 # Pagination rails
 gem 'will_paginate', '~> 3.3'
+=======
+gem "ffi"
+>>>>>>> FT-7
 
 # Use Sass to process CSS
 # gem "sassc-rails"
