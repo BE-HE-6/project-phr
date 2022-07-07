@@ -1,0 +1,2 @@
+module JoinLabMeasurementsHelper
+end

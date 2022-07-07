@@ -141,7 +141,7 @@ RSpec.describe "LabResults", type: :request do
                 Authorization: "Bearer #{authorize}"
             }
         }
-        it 'return status code ' do
+        it 'return status code 404 ' do
             expect(response).to have_http_status(404)
             expect(JSON.parse(response.body)['message']).to match("Couldn't find TbLabResult with 'id'=1000")
         end
