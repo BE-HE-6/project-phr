@@ -5,6 +5,8 @@ class Api::ProfilesController < ApplicationController
 
   # GET api/profiles/:id
   def show
+    session[:user_id] = @user.id
+    @profile = User.where(id: session[:user_id])
     render json: @profile
   end
 

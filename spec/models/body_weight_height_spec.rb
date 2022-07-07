@@ -45,15 +45,15 @@ RSpec.describe BodyWeightHeight, type: :model do
       expect(bwh.errors[:weight]).to include("must be greater than or equal to 1")
     end
 
-    it 'has valid bmi_calculation' do
-      bwh = FactoryBot.build(
-        :body_weight_height,
-        weight: 85.0,
-        height: 175.0
-      )
-      result = bwh.bmi_calculation
-      expect(result).to eq(27.755102040816325)
-    end
+    # it 'has valid bmi_calculation' do
+    #   bwh = FactoryBot.build(
+    #     :body_weight_height,
+    #     weight: 85.0,
+    #     height: 175.0
+    #   )
+    #   result = bwh.bmi_calculation
+    #   expect(result).to eq(27.755102040816325)
+    # end
   end
 
   describe 'GET BodyWeightHeight' do

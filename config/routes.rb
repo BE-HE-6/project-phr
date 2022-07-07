@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   namespace :api, defaults: { format: :json } do
+    get "users", to: "users#index"
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "users#login"
     get "profiles/:id", to: "profiles#show", as: "profile_id"

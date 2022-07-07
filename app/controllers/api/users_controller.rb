@@ -2,6 +2,12 @@ class Api::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   #POST 'api/sign_in'
+
+  def index
+    @users = User.all
+    jsonResponse(@users)
+  end
+
   def login
     @email = params[:email]
     @password = params[:password]

@@ -1,6 +1,7 @@
 class BloodGlucosesController < ApplicationController
   before_action :authorize
-  
+  # before_action :check_role_user
+
   def create
     req_data = data_body_req
 

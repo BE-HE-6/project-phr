@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "BodyWeightHeightController", type: :request do
-  let!(:users) {create_list(:user, 5)}
+  let!(:users) {create(:user)}
   let!(:body_weight_height) { FactoryBot.create_list(:body_weight_height, 5) } 
   let!(:body_weight_height_id) {body_weight_height.first.id}
 
   describe "GET /api/body_weight_height" do
-    before { get body_weight_height_index_path, headers: {
-      Authorization: "Bearer #{authorize}"
+    before {
+      get body_weight_height_index_path, headers: {
+      Authorization: "Bearer #{authorize}",
     } }
     it 'return BodyWeightHeight data' do
       expect(JSON.parse(response.body)).not_to be_empty
-      expect(JSON.parse(response.body).size).to eq(5)
+      expect(JSON.parse(response.body).size).to eq(1)
     end
 
     it 'return HTTP status OK' do
@@ -21,7 +22,8 @@ RSpec.describe "BodyWeightHeightController", type: :request do
 
   describe "GET /api/body_weight_height/:id" do
       before { get body_weight_height_path(id: body_weight_height_id), headers: {
-        Authorization: "Bearer #{authorize}"
+        Authorization: "Bearer #{authorize}",
+
       } }
       context 'when the record does not exist' do
         let(:body_weight_height_id) { 100 }
