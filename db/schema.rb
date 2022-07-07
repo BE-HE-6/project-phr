@@ -11,24 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_07_07_063836) do
-  create_table "_tb_documents_old_20220626", force: :cascade do |t|
-    t.string "doc_name"
-    t.string "doc_upload"
-    t.integer "user_id"
-    t.integer "document_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "_tb_documents_old_20220626_1", force: :cascade do |t|
-    t.string "doc_name"
-    t.string "image"
-    t.integer "user_id"
-    t.integer "document_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "blood_pressure_conditions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
