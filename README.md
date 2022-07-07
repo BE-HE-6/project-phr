@@ -95,6 +95,10 @@ rspec -fd
 
 #### [Documents](./docs/FT-9/tb_documents.md)
 
+#### [Measurements](./docs/FT-10/tb_lab_measurements.md)
+
+#### [Results](./docs/FT-10/tb_lab_results.md)
+
 ## Additional Information
 
 #### [Database Design](https://drive.google.com/file/d/1_KAMczs5TRCFWnOVvXOGUE61i-jUg4NM/view?usp=sharing)
