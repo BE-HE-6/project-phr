@@ -2,12 +2,12 @@ class LabResultsController < ApplicationController
     before_action :authorize, :check_role_user
     
     def index
-        @lab_results = TbLabResult.all
+        @lab_results = TbLabResult.where(user_id: session[:user_id]).all
         jsonResponse(@lab_results)
     end
 
     def show
-        @lab_result = TbLabResult.find(params[:id])
+        @lab_result = TbLabResult.where(user_id: session[:user_id]).find(params[:id])
         jsonResponse(@lab_result)
     end
 
@@ -22,7 +22,7 @@ class LabResultsController < ApplicationController
     end
     
     def destroy
-        TbLabResult.destroy(params[:id])
+        TbLabResult.where(user_id: session[:user_id]).destroy(params[:id])
         head :no_content
     end
     
