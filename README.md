@@ -32,8 +32,6 @@ A Web API project that can serve as medical record of a patient or user in elect
 - Blood Glucose Record
 - Vaccine Record
 - Documentation Record
-- Laboratorium Record
-- Lab Measurement Record
 
 ## Installation
 
@@ -96,3 +94,7 @@ rspec -fd
 #### [Document Categories](./docs/FT-9/tb_document_categories.md)
 
 #### [Documents](./docs/FT-9/tb_documents.md)
+
+## Additional Information
+
+#### [Database Design](https://drive.google.com/file/d/1_KAMczs5TRCFWnOVvXOGUE61i-jUg4NM/view?usp=sharing)
