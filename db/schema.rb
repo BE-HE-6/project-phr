@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_29_102746) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_07_063836) do
+  create_table "_tb_documents_old_20220626", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "doc_upload"
+    t.integer "user_id"
+    t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "_tb_documents_old_20220626_1", force: :cascade do |t|
+    t.string "doc_name"
+    t.string "image"
+    t.integer "user_id"
+    t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "blood_pressure_conditions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -85,6 +103,37 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_102746) do
     t.string "doc_upload"
     t.integer "user_id"
     t.integer "document_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_join_lab_measurements", force: :cascade do |t|
+    t.string "value", null: false
+    t.integer "measurement_id", null: false
+    t.integer "result_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_lab_measurements", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_lab_result_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tb_lab_results", force: :cascade do |t|
+    t.string "name"
+    t.datetime "date_time"
+    t.string "doc"
+    t.string "result_note"
+    t.integer "result_category_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
