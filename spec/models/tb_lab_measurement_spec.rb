@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TbLabMeasurement, type: :model do
-  describe '-- CREATE Category' do
+    describe '-- CREATE Category' do
 		it 'is invalid create without a name' do
 			labMeasurement = TbLabMeasurement.create(
 				name: nil
