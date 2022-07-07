@@ -7,7 +7,7 @@
     ```
 
     | Parameter           | Type      | Description    |
-        | :------------------ | :-------- | :------------- |
+    | :------------------ | :-------- | :------------- |
     | `result_id`         | `integer` | **_Required_** |
 
 
@@ -18,7 +18,7 @@
     ```
 
     | Parameter           | Type      | Description    |
-        | :------------------ | :-------- | :------------- |
+    | :------------------ | :-------- | :------------- |
     | `result_id`         | `integer` | Optional |
     | `measurement_id`    | `integer` | Optional |
     | `value`             | `string`  | Optional |
@@ -30,5 +30,5 @@
     ```
 
     | Parameter | Type      | Description    |
-        | :-------- | :-------- | :------------- |
+    | :-------- | :-------- | :------------- |
     | `id`      | `integer` | **_Required_** |
