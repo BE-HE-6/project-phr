@@ -8,7 +8,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
         before { 
             get '/api/document_categories/', 
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             } 
         }
         it 'return document categories' do
@@ -25,7 +25,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
         before { 
             get "/api/document_categories/#{document_category_id}", 
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
     
@@ -56,7 +56,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
             before { 
                 post '/api/document_categories', 
                 params: { name: nil }, headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 }
             }
             it 'return status code 422' do
@@ -72,7 +72,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
                 post '/api/document_categories', 
                 params: { name: 'Diagnose' },
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 }
             }
             it 'created a document category' do
@@ -91,7 +91,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
                 params: { 
                     name: 'Medical Billing' 
                 }, headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'return status code 204' do
@@ -105,7 +105,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
             before { 
                 delete "/api/document_categories/1000", 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 }
             }
             it 'return status code ' do
@@ -117,7 +117,7 @@ RSpec.describe "DocumentCategoriesController", type: :request do
             before { 
                 delete "/api/document_categories/#{document_category_id}", 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'return status code 204' do

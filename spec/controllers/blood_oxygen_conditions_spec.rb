@@ -7,7 +7,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
   
   describe 'GET /api/blood_oxygen_conditions' do
     before { get '/api/blood_oxygen_conditions', headers: {
-        Authorization: "Bearer #{authorize}"
+        Authorization: "Bearer #{authorizeAdmin}"
       } }
     it 'return blood oxygen condition' do
         json_result = JSON.parse(response.body)
@@ -30,7 +30,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 }
             },
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'return status code 422' do
@@ -48,7 +48,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 }
             },
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'created a blood oxygen condition' do
@@ -64,7 +64,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
     context 'when the record does not exist' do
         before { 
             put "/api/blood_oxygen_conditions/#{10000000}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
               }
         }
         it 'return status code ' do
@@ -81,7 +81,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 }
             },
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'updated the record & return status code 422' do
@@ -98,7 +98,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
                 }
             },
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'updated the record & return status code 204' do
@@ -111,7 +111,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
     context 'when the record does not exist' do
         before { 
             delete "/api/blood_oxygen_conditions/#{10000000}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
               }
         }
         it 'return status code ' do
@@ -122,7 +122,7 @@ RSpec.describe 'BloodOxygenConditionsController', type: :request do
     context 'when the record exists' do
         before { 
             delete "/api/blood_oxygen_conditions/#{blood_oxygen_condition_id}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
               }
         }
         it 'return status code 204' do

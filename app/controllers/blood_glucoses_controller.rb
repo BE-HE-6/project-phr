@@ -1,6 +1,5 @@
 class BloodGlucosesController < ApplicationController
-  before_action :authorize
-  # before_action :check_role_user
+  before_action :authorize, :check_role_user
 
   def create
     req_data = data_body_req
@@ -29,7 +28,7 @@ class BloodGlucosesController < ApplicationController
 
   def destroy
     begin
-      @bloodGlucose = TbBloodGlucose.find(params[:id])
+      @bloodGlucose = TbBloodGlucose.where(user_id: session[:user_id]).find(params[:id])
       @bloodGlucose.destroy
       if (@bloodGlucose.valid?)
         render json: {
@@ -52,7 +51,7 @@ class BloodGlucosesController < ApplicationController
 
   def show
     begin
-      @bloodGlucose = TbBloodGlucose.joins(:tb_blood_glucose_condition).select("tb_blood_glucoses.id, blood_glucose, note, date_time, user_id, name").find(params[:id])
+      @bloodGlucose = TbBloodGlucose.joins(:tb_blood_glucose_condition).select("tb_blood_glucoses.id, blood_glucose, note, date_time, user_id, name").where(user_id: session[:user_id]).find(params[:id])
       render json: {
         status: 'success', 
         data: @bloodGlucose
@@ -69,12 +68,12 @@ class BloodGlucosesController < ApplicationController
     @bloodGlucose = TbBloodGlucose.joins(:tb_blood_glucose_condition)
     render json: {
       status: 'success',
-      data: @bloodGlucose.all.select("tb_blood_glucoses.id, blood_glucose, note, date_time, user_id, name")
+      data: @bloodGlucose.where(user_id: session[:user_id]).all.select("tb_blood_glucoses.id, blood_glucose, note, date_time, user_id, name")
     }
   end
 
-  private
-  def data_body_req
-    params.require(:data).permit(:blood_glucose, :note, :user_id, :blood_glucose_condition_id)
+  private def data_body_req
+    default = { user_id: session[:user_id] }
+    params.require(:data).permit(:blood_glucose, :note, :user_id, :blood_glucose_condition_id).reverse_merge!(default)
   end
 end

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "BloodOxygens", type: :request do
   let!(:users) {create_list(:user, 5)}
+  let!(:authorize) {authorizeUser(users.first.email, 'Examples20#')}
+
   let!(:blood_oxygen_condition) { create_list(:tb_blood_oxygen_condition,3) }
   let!(:blood_oxygens) { create_list(:tb_blood_oxygen, 3) }
   let(:blood_oxygen_id) { blood_oxygens.first.id }
@@ -54,7 +56,6 @@ RSpec.describe "BloodOxygens", type: :request do
             "data":{
                 "blood_oxygen":nil,
                 "note":"Test 1",
-                "user_id": users.first.id,
                 "blood_oxygen_condition_id":Faker::Number.between(from: 1, to: 3)
             }
           }, headers: {
@@ -64,27 +65,11 @@ RSpec.describe "BloodOxygens", type: :request do
           expect(JSON.parse(response.body)['errors']['blood_oxygen'][0]).to match("can't be blank")
       end
 
-      it "user id can't be blank" do
-        post '/api/blood_oxygens', params: {
-          "data":{
-              "blood_oxygen":90,
-              "note":"Test 1",
-              "user_id":nil,
-              "blood_oxygen_condition_id":Faker::Number.between(from: 1, to: 3)
-          }
-        }, headers: {
-          Authorization: "Bearer #{authorize}"
-        }
-        expect(response).to have_http_status(422)
-        expect(JSON.parse(response.body)['errors']['user_id'][0]).to match("can't be blank")
-      end
-
       it "blood oxygen condition id can't be blank" do
         post '/api/blood_oxygens', params: {
           "data":{
               "blood_oxygen":90,
               "note":"Test 1",
-              "user_id":2,
               "blood_oxygen_condition_id":nil
           }
         }, headers: {
@@ -100,7 +85,6 @@ RSpec.describe "BloodOxygens", type: :request do
             "data":{
                 "blood_oxygen":80,
                 "note":"Test 1",
-                "user_id": users.first.id,
                 "blood_oxygen_condition_id":Faker::Number.between(from: 1, to: 3)
             }
           }, headers: {

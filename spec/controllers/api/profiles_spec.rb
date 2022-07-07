@@ -23,7 +23,7 @@ RSpec.describe "Api::Profiles", type: :request do
     context "when the record exist status code 200" do
       before { 
         get "/api/profiles/#{profile_id}", headers: {
-          Authorization: "Bearer #{authorize}"
+          Authorization: "Bearer #{authorizeAdmin}"
         }
       }
       it "return the profile" do
@@ -51,7 +51,7 @@ RSpec.describe "Api::Profiles", type: :request do
             ktp_id: "3673033607930003" 
           }
         }, headers: {
-          Authorization: "Bearer #{authorize}"
+          Authorization: "Bearer #{authorizeAdmin}"
         }
       }
 

@@ -43,6 +43,8 @@ class ApplicationController < ActionController::Base
   def check_role_user
     if session[:current_user_role] == 'admin'
       render json: { message: "You don't have permission"}, status: :unauthorized
+    else
+      session[:user_id] = @user.id
     end
   end
 

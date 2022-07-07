@@ -7,7 +7,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
     describe 'GET /api/vaccine_categories' do
         before { 
             get "/api/vaccine_categories", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             } 
         }
         it 'return vaccine categories' do
@@ -24,7 +24,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
         before { 
             get "/api/vaccine_categories/#{vaccine_category_id}", 
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             } 
         }
     
@@ -56,7 +56,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
                 post "/api/vaccine_categories", 
                 params: { name: nil }, 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'return status code 422' do
@@ -72,7 +72,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
                 post "/api/vaccine_categories", 
                 params: { name: 'Inactivated vaccines' }, 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'created a vaccine category' do
@@ -91,7 +91,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
                 params: { 
                     name: 'Toxoid vaccines' 
                 }, headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'updated the record & return status code 204' do
@@ -105,7 +105,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
             before { 
                 delete "/api/vaccine_categories/1000", 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'return status code ' do
@@ -117,7 +117,7 @@ RSpec.describe "VaccineCategoriesController", type: :request do
             before { 
                 delete "/api/vaccine_categories/#{vaccine_category_id}", 
                 headers: {
-                    Authorization: "Bearer #{authorize}"
+                    Authorization: "Bearer #{authorizeAdmin}"
                 } 
             }
             it 'return status code 204' do
