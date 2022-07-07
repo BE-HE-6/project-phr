@@ -2,8 +2,8 @@ class LabMeasurementsController < ApplicationController
     before_action :authorize, :check_role_admin
     
     def index
-        lab_measurementct = TbLabMeasurement.all
-        jsonResponse(lab_measuremens)
+        lab_measurements = TbLabMeasurement.all
+        jsonResponse(lab_measurements)
     end
     def show
         lab_measurement = TbLabMeasurement.find(params[:id])
