@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :blood_oxygen_conditions, only: [:create, :update, :destroy, :index, :show]
     resources :blood_glucose_conditions, only: [:create, :update, :destroy, :index, :show]
     resources :blood_pressure_condition, only: [:index, :create, :update, :show, :destroy ]
+    resources :lab_result_categories, only: [:index, :create, :update, :show, :destroy ]
+    resources :lab_measurements, only: [:index, :create, :update, :show, :destroy ]
 
     resources :blood_oxygens, only: [:create, :destroy, :index, :show]
     resources :blood_glucoses, only: [:create, :destroy, :index, :show]
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
     resources :blood_pressure, only: [:index, :show, :create, :destroy]
 		resources :vaccines, only: [:create, :index, :destroy, :show]
 		resources :documents, only: [:create, :index, :destroy, :show]
+		resources :lab_results, only: [:create, :index, :destroy, :show]
+		resources :join_lab_measurements, only: [:create, :index, :destroy, :show]
   end
   
 end

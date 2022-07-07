@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TbDocument, type: :model do
-  let!(:users) {create_list(:user, 5)}
-  describe '-- CREATE Document' do
+	let!(:users) {create_list(:user, 5)}
+	describe '-- CREATE Document' do
 		it 'is invalid create with nil data' do
 			document = TbDocument.create(
 				doc_name: nil,
