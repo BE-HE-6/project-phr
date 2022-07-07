@@ -6,9 +6,9 @@
     GET /api/lab_results/:id
     ```
 
-  | Parameter | Type      | Description    |
-      | :-------- | :-------- | :------------- |
-  | `id`    | `integer` | **_Required_** |
+    | Parameter | Type      | Description    |
+    | :-------- | :-------- | :------------- |
+    | `id`    | `integer` | **_Required_** |
 
 - #### Get All Lab Results
 
@@ -16,14 +16,14 @@
     GET /api/lab_results
     ```
 
-  | Parameter | Type      | Description    |
-      | :-------- | :-------- | :------------- |
-  | `name`    | `string` | **_Required_** |
-  | `doc` | `string` | **_Required_** |
-  | `date_time`  | `datetime` | **_Required_** |
-  | `user_id` | `integer`  | **_Required_** |
-  | `result_category_id`  | `integer`  | **_Required_** |
-  | `result_note`    | `string`  | **_Required_** |
+    | Parameter | Type      | Description    |
+    | :-------- | :-------- | :------------- |
+    | `name`    | `string` | **_Required_** |
+    | `doc` | `string` | **_Required_** |
+    | `date_time`  | `datetime` | **_Required_** |
+    | `user_id` | `integer`  | **_Required_** |
+    | `result_category_id`  | `integer`  | **_Required_** |
+    | `result_note`    | `string`  | **_Required_** |
 
 -   #### Create Lab Results
 
@@ -32,7 +32,7 @@
     ```
 
     | Parameter   | Type      | Description    |
-        | :---------- | :-------- | :------------- |
+    | :---------- | :-------- | :------------- |
     | `name`      | `integer` | Optional |
     | `doc`       | `integer` | Optional |
     | `date_time` | `string`  | Optional |
@@ -47,5 +47,5 @@
     ```
 
     | Parameter | Type      | Description    |
-        | :-------- | :-------- | :------------- |
+    | :-------- | :-------- | :------------- |
     | `id`      | `integer` | **_Required_** |
