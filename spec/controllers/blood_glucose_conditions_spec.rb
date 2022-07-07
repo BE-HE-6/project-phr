@@ -7,7 +7,7 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
   
   describe 'GET /api/blood_glucose_conditions' do
     before { get '/api/blood_glucose_conditions', headers: {
-        Authorization: "Bearer #{authorize}"
+        Authorization: "Bearer #{authorizeAdmin}"
       } }
     it 'return blood glucose condition' do
         json_result = JSON.parse(response.body)
@@ -29,7 +29,7 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
                 } 
             },
             headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         } 
         it 'return status code 422' do
@@ -48,7 +48,7 @@ RSpec.describe "BloodGlucoseConditions", type: :request do
                     "name":"olahraga"
                 }
             }, headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'created a blood glucose condition' do
@@ -64,7 +64,7 @@ end
     context 'when the record does not exist' do
         before { 
             put "/api/blood_glucose_conditions/#{10000000}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'return status code ' do
@@ -80,7 +80,7 @@ end
                     "name":blood_glucose_condition2_name
                 }
             }, headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'updated the record & return status code 422' do
@@ -96,7 +96,7 @@ end
                     "name":"olahraga"
                 }
             }, headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'updated the record & return status code 204' do
@@ -109,7 +109,7 @@ end
     context 'when the record does not exist' do
         before { 
             delete "/api/blood_glucose_conditions/#{10000000}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'return status code ' do
@@ -120,7 +120,7 @@ end
     context 'when the record exists' do
         before { 
             delete "/api/blood_glucose_conditions/#{blood_glucose_condition_id}", headers: {
-                Authorization: "Bearer #{authorize}"
+                Authorization: "Bearer #{authorizeAdmin}"
             }
         }
         it 'return status code 204' do

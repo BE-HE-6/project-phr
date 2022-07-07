@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :body_weight_height do
-    user_id { Faker::Number.between(from: 1, to: 4) }
+    user_id { 1 }
     weight { Faker::Number.decimal(l_digits: 2) }
     height { Faker::Number.decimal(l_digits: 2) }
     note { Faker::Lorem.sentence(word_count: 3) }

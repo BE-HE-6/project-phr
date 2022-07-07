@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "DocumentsController", type: :request do
     let!(:users) {create_list(:user, 5)}
+    let!(:authorize) {authorizeUser(users.first.email, 'Examples20#')}
+
 	let!(:document_categories) { create_list(:TbDocumentCategory, 5) }
     let!(:documents) { create_list(:TbDocument, 5) }
     let(:document_id) { documents.first.id }
@@ -57,7 +59,6 @@ RSpec.describe "DocumentsController", type: :request do
                 post "/api/documents/", params: { 
                     doc_name: "",
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
@@ -69,7 +70,6 @@ RSpec.describe "DocumentsController", type: :request do
                 post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: "",
-                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
                 },
                 headers: {
@@ -78,24 +78,10 @@ RSpec.describe "DocumentsController", type: :request do
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Doc upload can't be blank")
             end
-            it "user id can't be blank" do
-                post "/api/documents/", params: { 
-                    doc_name: 'Diagnosa Penyakit COVID-19',
-                    doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: nil,
-                    document_category_id: Faker::Number.between(from: 1, to: 5)
-                },
-                headers: {
-                    Authorization: "Bearer #{authorize}"
-                }
-                expect(response).to have_http_status(422)
-                expect(JSON.parse(response.body)['message']).to match("Validation failed: User must exist, User can't be blank, User is not a number")
-            end
             it "document category id can't be blank" do
                 post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: users.first.id,
                     document_category_id: nil
                 },
                 headers: {
@@ -108,7 +94,6 @@ RSpec.describe "DocumentsController", type: :request do
                 post "/api/documents/", params: { 
                     doc_name: 'Diagnosa Penyakit COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: users.first.id,
                     document_category_id: 1000
                 },
                 headers: {
@@ -124,7 +109,6 @@ RSpec.describe "DocumentsController", type: :request do
                 post "/api/documents/", params: {  
                     doc_name: 'Sertifikat Vaksin COVID-19',
                     doc_upload: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/myfiles/untitled.png'))),
-                    user_id: users.first.id,
                     document_category_id: Faker::Number.between(from: 1, to: 5)
                 } ,
                 headers: {

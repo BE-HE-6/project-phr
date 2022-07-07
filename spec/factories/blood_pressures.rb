@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :blood_pressure do
-    user_id { Faker::Number.between(from: 1, to: 4) }
+    user_id { 1 }
     blood_pressure_condition_id { Faker::Number.between(from: 1, to: 4) }
     sistole { Faker::Number.within(range: 1..180) }
     diastole { Faker::Number.within(range: 1..120) }

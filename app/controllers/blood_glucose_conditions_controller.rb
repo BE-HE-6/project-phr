@@ -1,6 +1,6 @@
 class BloodGlucoseConditionsController < ApplicationController
   before_action :authorize
-  before_action :checkRoleAdmin
+  before_action :check_role_admin
   
   def create
     @blood_glucose_condition = TbBloodGlucoseCondition.create(post_param)

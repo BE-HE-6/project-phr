@@ -34,9 +34,17 @@ class ApplicationController < ActionController::Base
   def authorize
     render json: { message: 'You have to log in' }, status: :unauthorized unless authorized_user
   end
-  def checkRoleAdmin
+  def check_role_admin
     if session[:current_user_role] == 'user'
       render json: { message: "You don't have permission" }, status: :unauthorized 
+    end
+  end
+
+  def check_role_user
+    if session[:current_user_role] == 'admin'
+      render json: { message: "You don't have permission"}, status: :unauthorized
+    else
+      session[:user_id] = @user.id
     end
   end
 

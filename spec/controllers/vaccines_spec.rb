@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "VaccinesController", type: :request do
     let!(:users) {create_list(:user, 5)}
+    let!(:authorize) {authorizeUser(users.first.email, 'Examples20#')}
+
     let!(:vaccine_categories) { create_list(:TbVaccineCategory, 5) }
     let!(:vaccines) { create_list(:TbVaccine, 5) }
     let(:vaccine_id) { vaccines.first.id }
@@ -54,7 +56,6 @@ RSpec.describe "VaccinesController", type: :request do
                 post "/api/vaccines/", params: { 
                     name: nil,
                     location: 'Kota Bekasi',
-                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
@@ -66,7 +67,6 @@ RSpec.describe "VaccinesController", type: :request do
                 post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: nil,
-                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
@@ -74,23 +74,10 @@ RSpec.describe "VaccinesController", type: :request do
                 expect(response).to have_http_status(422)
                 expect(JSON.parse(response.body)['message']).to match("Validation failed: Location can't be blank")
             end
-            it "user id can't be blank" do
-                post "/api/vaccines/", params: { 
-                    name: 'Inactivated vaccines',
-                    location: 'Kota Bekasi',
-                    user_id: nil,
-                    vaccine_category_id: Faker::Number.between(from: 1, to: 5)
-                }, headers: {
-                    Authorization: "Bearer #{authorize}"
-                }
-                expect(response).to have_http_status(422)
-                expect(JSON.parse(response.body)['message']).to match("Validation failed: User must exist, User can't be blank, User is not a number")
-            end
             it "vaccine category id can't be blank" do
                 post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: 'Kota Bekasi',
-                    user_id: users.first.id,
                     vaccine_category_id: nil
                 }, headers: {
                     Authorization: "Bearer #{authorize}"
@@ -105,7 +92,6 @@ RSpec.describe "VaccinesController", type: :request do
                 post "/api/vaccines/", params: { 
                     name: 'Inactivated vaccines',
                     location: 'Kota Bekasi',
-                    user_id: users.first.id,
                     vaccine_category_id: Faker::Number.between(from: 1, to: 5)
                 }, headers: {
                     Authorization: "Bearer #{authorize}"

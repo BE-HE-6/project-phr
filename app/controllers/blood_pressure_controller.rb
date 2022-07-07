@@ -1,13 +1,13 @@
 class BloodPressureController < ApplicationController
-    before_action :authorize
+    before_action :authorize, :check_role_user
     
     def index
-        @bp = BloodPressure.all
+        @bp = BloodPressure.where(user_id: session[:user_id]).all
         jsonResponse(@bp)
     end
 
     def show
-        @bp = BloodPressure.find(params[:id])
+        @bp = BloodPressure.where(user_id: session[:user_id]).find(params[:id])
         jsonResponse(@bp)
     end
 
@@ -17,13 +17,13 @@ class BloodPressureController < ApplicationController
     end
 
     def destroy
-        @bp = BloodPressure.find(params[:id]).destroy!
+        @bp = BloodPressure.where(user_id: session[:user_id]).find(params[:id]).destroy!
         head :no_content
     end
 
-    private
-    def bp_params
-        params.permit(:user_id, :blood_pressure_condition_id, :sistole, :diastole, :pulse, :note, :date_time)
+    private def bp_params
+        default = { user_id: session[:user_id] }
+        params.permit(:user_id, :blood_pressure_condition_id, :sistole, :diastole, :pulse, :note, :date_time).reverse_merge!(default)
     end
     
 end

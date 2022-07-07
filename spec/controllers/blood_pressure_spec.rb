@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "BloodPressures", type: :request do
   let!(:users) {create_list(:user, 5)}
+  let!(:authorize) {authorizeUser(users.first.email, 'Examples20#')}
+
   let!(:blood_pressure_condition) { FactoryBot.create_list(:blood_pressure_condition, 5) }
   let!(:blood_pressure) { FactoryBot.create_list(:blood_pressure, 5)}
   let!(:blood_pressure_id) { blood_pressure.first.id }
@@ -64,7 +66,6 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "blood_pressure_condition can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: users.first.id,
           blood_pressure_condition_id: nil,
           sistole: 120,
           diastole: 80,
@@ -80,7 +81,6 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "sistole can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: nil,
           diastole: 80,
@@ -96,7 +96,6 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "diastole can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: nil,
@@ -112,7 +111,6 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "pulse can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: 80,
@@ -128,7 +126,6 @@ RSpec.describe "BloodPressures", type: :request do
 
       it "date_time can't be blank" do
         post '/api/blood_pressure', params: {
-          user_id: users.first.id,
           blood_pressure_condition_id: 2,
           sistole: 120,
           diastole: 80,
@@ -146,7 +143,6 @@ RSpec.describe "BloodPressures", type: :request do
     context "the request is valid" do
       it 'create a blood pressure data' do
         post '/api/blood_pressure', params: {
-          user_id: 3,
           blood_pressure_condition_id: Faker::Number.between(from: 1, to: 4),
           sistole: 120,
           diastole: 80,
