@@ -1,4 +1,4 @@
-### Documents
+### Measurement
 
 -   #### Get All Measurements by lab result ID
 
@@ -23,7 +23,7 @@
     | `measurement_id`    | `integer` | Optional |
     | `value`             | `string`  | Optional |
 
--   #### Delete Document
+-   #### Delete Measurements
 
     ```ruby
     DELETE /api/measurements/:id
