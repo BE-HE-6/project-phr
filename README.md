@@ -1,4 +1,4 @@
-# Personal Helath Record (PHR)
+# Personal Health Record (PHR)
 
 A Web API project that can serve as medical record of a patient or user in electronic format about personal health information written by the user independently.
 
