@@ -6,11 +6,12 @@
   POST /api/blood_glucose_conditions
 ```
 
-| Parameter | Type      | Description |
-| :-------- | :-------- | :---------- |
-| `name`      | `string` | ***Required***  |
+| Parameter | Type     | Description    |
+| :-------- | :------- | :------------- |
+| `name`    | `string` | **_Required_** |
 
 #### JSON Body Request Example
+
 ```
 {
     "blood_glucose_condition":{
@@ -31,12 +32,13 @@
   PUT /api/blood_glucose_conditions/:id
 ```
 
-| Parameter | Type      | Description |
-| :-------- | :-------- | :---------- |
-| `id`      | `integer` | ***Required***  |
-| `name`      | `string` | ***Required***  |
+| Parameter | Type      | Description    |
+| :-------- | :-------- | :------------- |
+| `id`      | `integer` | **_Required_** |
+| `name`    | `string`  | **_Required_** |
 
 #### JSON Body Request Example
+
 ```
 {
     "blood_glucose_condition":{
@@ -54,3 +56,5 @@
 | Parameter | Type      | Description  |
 | :-------- | :-------- | :----------- |
 | `id`      | `integer` | **Required** |
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJMqEnF)

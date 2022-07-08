@@ -5,6 +5,7 @@
 ```http
   GET /api/blood_oxygens
 ```
+
 ```http
   GET /api/blood_oxygens/:id
 ```
@@ -19,14 +20,15 @@
   POST /api/blood_oxygens
 ```
 
-| Parameter | Type      | Description |
-| :-------- | :-------- | :---------- |
-| `blood_oxygen`      | `integer` | ***Required***  |
-| `note`      | `string` | _Optional_  |
-| `user_id`      | `integer` | ***Required***  |
-| `blood_oxygen_condition_id`      | `integer` | ***Required***  |
+| Parameter                   | Type      | Description    |
+| :-------------------------- | :-------- | :------------- |
+| `blood_oxygen`              | `integer` | **_Required_** |
+| `note`                      | `string`  | _Optional_     |
+| `user_id`                   | `integer` | **_Required_** |
+| `blood_oxygen_condition_id` | `integer` | **_Required_** |
 
 #### JSON Body Request Example
+
 ```
 {
     "data":{
@@ -47,3 +49,5 @@
 | Parameter | Type      | Description  |
 | :-------- | :-------- | :----------- |
 | `id`      | `integer` | **Required** |
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/18486227/UzJMqEnF)
