@@ -32,6 +32,7 @@ A Web API project that can serve as medical record of a patient or user in elect
 - Blood Glucose Record
 - Vaccine Record
 - Documentation Record
+- Lab Result & Lab Measurement Record
 
 ## Installation
 
