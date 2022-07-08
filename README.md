@@ -78,7 +78,7 @@ rspec -fd
 
 #### [Blood Pressure Condition](./docs/FT-5/BloodPressureCondition.md)
 
-#### [Blood Pressure](./docs/FT-5/BloodPressureCondition.md)
+#### [Blood Pressure](./docs/FT-5/BloodPressure.md)
 
 #### [Blood Oxygen Condition](./docs/FT-6/BloodOxygenCondition.md)
 
